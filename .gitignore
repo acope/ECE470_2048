@@ -1,0 +1,9 @@
+2048.mcp
+*.tdt
+*.hwl
+*.ini
+*.mem
+/prm
+/cmd
+/bin
+/2048_Data
