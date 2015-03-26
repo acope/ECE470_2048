@@ -270,17 +270,20 @@ int pokemontitleDelay[]={
 //|             20            |                         21                               |               22           |                   23                          |
    halfDot, eigthDot, sixtenth, tripeletE, tripeletE, tieTripletEHalf, eigthDot, sixtenth, halfDot, eigthDot, sixtenth, tripeletE, tripeletE, tieTripletEHalf, end_song //15 NOTES
  }; 
-//#pragma CODE_SEG NON_BANKED
+
+#pragma CODE_SEG NON_BANKED
 
 //Timer Channel 5 interrupt service routine
-void interrupt 13 handler(){
+void interrupt VectorNumber_Vtimch5 handler(){
+
  tone(noteValue);
+
 }//interrupt 13
 
 
 //RTI Interrupt service routine
 //RTI acts as a ms_delay
-void interrupt 7 RTI_ISR(){        
+void interrupt VectorNumber_Vrti RTI_ISR(){        
   CRGFLG= 0x80;   //clear real-time interrupt flag!!!    
      
   if(restValue == 0){
@@ -289,14 +292,16 @@ void interrupt 7 RTI_ISR(){
    //xsound_on();
    j++;
   } 
-  restValue--; //decrease rest time 
+  restValue--; //decrease rest time
+  
+    
 }//interrupt 7
 
 #pragma CODE_SEG DEFAULT 
 
 void TetrisThemeA(char playSong){
-    i = 0;
     
+    /*
     while(playSong == playTetris){      
      if(i < 99){
       pitch = tetrisScore[i] / 2;
@@ -309,6 +314,21 @@ void TetrisThemeA(char playSong){
        i=0;
      }//else      
     }//while
+    */
+    
+    noteP = tetrisScore; //make the note pointer = to first pitch array location
+    restP = tetrisDelay; //make the rest pointer = to first rest array location
+    
+    noteValue = *noteP;  //set noteValue to first value of note pointer
+    restValue = *restP;  //see above
+    
+    sound_on();          //set up the timer register
+    
+    while(1){            //infinte loop for debug, don't do this in real code #fix
+    }
+    
+    
+    
 }//TetrisThemeA 
 
 void PokemonTitle(char playSong){
@@ -329,12 +349,13 @@ void PokemonTitle(char playSong){
 
 void IndianaJones(char playSong){
     i = 0;
-        
+    sound_on();    
+    
     while(playSong == playIndianaJones){      
      if(i < 97){
       pitch = indianajonesScore[i] / 2;
       rest = indianajonesDelay[i];
-      sound_on(); 
+       
       ms_delay(rest);
       i++;
      }else{
@@ -408,8 +429,7 @@ void sound_off(){
 
 
 
-void tone(int pitch){
-  
+void tone(int pitch){  
   
   TC5 += pitch;
   TC7 = TC5;      //TC7 = TC6 + pitch

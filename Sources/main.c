@@ -27,7 +27,7 @@ Need to add
 
 void main(void) {
  SetClk24(); //Initialize PLL
-  
+
   //Timer Interrupt Initialization
   sound_init();
   
@@ -38,7 +38,7 @@ void main(void) {
   
   for(;;){
   
-    char x = playIndianaJones;
+    char x = playTetris;
     
     IndianaJones(x);
     TetrisThemeA(x);
