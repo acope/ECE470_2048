@@ -14,7 +14,7 @@ SEGMENTS  /* Here all RAM/ROM areas of the device are listed. Used in PLACEMENT 
 
 /* non-paged FLASHs */
       ROM_4000      = READ_ONLY     0x4000 TO   0x7FFF;
-      ROM_C000      = READ_ONLY     0xC000 TO   0xFEFF;
+      ROM_C000      = READ_ONLY     0xC000 TO   0xF77F;
  /*   VECTORS       = READ_ONLY     0xFF00 TO   0xFFFF; intentionally not defined: used for VECTOR commands below */
    //OSVECTORS      = READ_ONLY     0xFF8C TO   0xFFFF;   /* OSEK interrupt vectors (use your vector.o) */
 
@@ -44,14 +44,14 @@ PLACEMENT /* here all predefined and user segments are placed into the SEGMENTS 
       STRINGS,                /* string literals */
       VIRTUAL_TABLE_SEGMENT,  /* C++ virtual table segment */
     //.ostext,                /* OSEK */
-      NON_BANKED,             /* runtime routines which must not be banked */
+      DEFAULT_ROM, NON_BANKED,             /* runtime routines which must not be banked */
       COPY                    /* copy down information: how to initialize variables */
                               /* in case you want to use ROM_4000 here as well, make sure
                                  that all files (incl. library files) are compiled with the
                                  option: -OnB=b */
                         INTO  ROM_C000/*, ROM_4000*/;
 
-      DEFAULT_ROM       INTO  PAGE_30, PAGE_31, PAGE_32, PAGE_33, PAGE_34, PAGE_35, PAGE_36, PAGE_37, 
+      OTHER_ROM         INTO  PAGE_30, PAGE_31, PAGE_32, PAGE_33, PAGE_34, PAGE_35, PAGE_36, PAGE_37, 
                               PAGE_38, PAGE_39, PAGE_3A, PAGE_3B, PAGE_3C, PAGE_3D                  ;
 
     //.stackstart,            /* eventually used for OSEK kernel awareness: Main-Stack Start */
