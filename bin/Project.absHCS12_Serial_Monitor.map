@@ -1,44 +1,44 @@
 *** EVALUATION ***
-PROGRAM "B:\Benjamin Nold's Data\Documents\GitHub\ECE470_2048\bin\Project.absHCS12_Serial_Monitor.abs"
+PROGRAM "C:\Users\mr_co_000\Documents\GitHub\ECE470_2048\bin\Project.absHCS12_Serial_Monitor.abs"
 
 *********************************************************************************************
 TARGET SECTION
 ---------------------------------------------------------------------------------------------
 Processor   : Freescale HC12
-Memory Model: SMALL
+Memory Model: BANKED
 File Format : ELF\DWARF 2.0
 Linker      : SmartLinker V-5.0.40 Build 10203, Jul 23 2010
 
 *********************************************************************************************
 FILE SECTION
 ---------------------------------------------------------------------------------------------
-mc9s12dg256.c.o                         Model: SMALL,         Lang: ANSI-C
-main.c.o                                Model: SMALL,         Lang: ANSI-C
-Start12.c.o                             Model: SMALL,         Lang: ANSI-C
-sound.c.o                               Model: SMALL,         Lang: ANSI-C
+mc9s12dg256.c.o                         Model: BANKED,        Lang: ANSI-C
+main.c.o                                Model: BANKED,        Lang: ANSI-C
+Start12.c.o                             Model: BANKED,        Lang: ANSI-C
+sound.c.o                               Model: BANKED,        Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
 ---------------------------------------------------------------------------------------------
-Entry point: 0xC029 (_Startup)
-_startupData is allocated at 0xC03B and uses 6 Bytes
+Entry point: 0xC000 (_Startup)
+_startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x1100     1384
-  _Copy    *toCopyDownBeg 0xC07E
+  _Range   pZeroOut       0x1100     1776
+  _Copy    *toCopyDownBeg 0xC04F
 } _startupData;
 
 *********************************************************************************************
 SECTION-ALLOCATION SECTION
 Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
-.init                             59     R     0xC000     0xC03A   ROM_C000
-.startData                        10     R     0xC03B     0xC044   ROM_C000
-NON_BANKED                        57     R     0xC045     0xC07D   ROM_C000
-.copy                           1374     R     0xC07E     0xC5DB   ROM_C000
-.text                            334     R   0x308000   0x30814D   PAGE_30
+.init                             11     R     0xC000     0xC00A   ROM_C000
+.startData                        10     R     0xC00B     0xC014   ROM_C000
+NON_BANKED                        58     R     0xC015     0xC04E   ROM_C000
+.copy                           1770     R     0xC04F     0xC738   ROM_C000
+.text                            341     R   0x308000   0x308154   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
-.data                           1368   R/W     0x1100     0x1657   RAM
+.data                           1764   R/W     0x1100     0x17E3   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -382,20 +382,20 @@ NON_BANKED                        57     R     0xC045     0xC07D   ROM_C000
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ffe4                  2     R     0xFFE4     0xFFE5   .absSeg341
 .abs_section_fff0                  2     R     0xFFF0     0xFFF1   .absSeg342
-.bss                               6   R/W     0x1658     0x165D   RAM
-.common                           10   R/W     0x165E     0x1667   RAM
+.bss                               6   R/W     0x17E4     0x17E9   RAM
+.common                            6   R/W     0x17EA     0x17EF   RAM
 .vectSeg343_vect                   2     R     0xFFFE     0xFFFF   .vectSeg343
 
 Summary of section sizes per section type:
-READ_ONLY (R):         730 (dec:     1840)
-READ_WRITE (R/W):      668 (dec:     1640)
+READ_ONLY (R):         894 (dec:     2196)
+READ_WRITE (R/W):      7F0 (dec:     2032)
 NO_INIT (N/I):         190 (dec:      400)
 
 *********************************************************************************************
 VECTOR-ALLOCATION SECTION
     Address     InitValue   InitFunction
 ---------------------------------------------------------------------------------------------
-     0xFFFE        0xC029   _Startup
+     0xFFFE        0xC000   _Startup
 
 *********************************************************************************************
 OBJECT-ALLOCATION SECTION
@@ -747,67 +747,68 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                    308000      25      37       1   .text       
+     main                                    308000      2B      43       2   .text       
 - VARIABLES:
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                      C000      29      41       1   .init       
-     _Startup                                  C029      12      18       0   .init       
+     Init                                    30802B      29      41       2   .text       
+     _Startup                                  C000       B      11       0   .init       
 - VARIABLES:
-     _startupData                              C03B       6       6       3   .startData  
+     _startupData                              C00B       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- sound.c.o --
 - PROCEDURES:
-     TetrisThemeA                            308025      18      24       1   .text       
-     PokemonTitle                            30803D      42      66       1   .text       
-     IndianaJones                            30807F      42      66       1   .text       
-     TestPitch                               3080C1      19      25       1   .text       
-     ms_delay                                3080DA      1F      31       3   .text       
-     sound_init                              3080F9      20      32       1   .text       
-     sound_on                                308119       A      10       4   .text       
-     tone                                    308123      16      22       1   .text       
-     SetClk24                                308139      15      21       1   .text       
-     handler                                   C045       7       7       1   NON_BANKED  
-     RTI_ISR                                   C04C      32      50       1   NON_BANKED  
+     TetrisThemeA                            308054      25      37       2   .text       
+     PokemonTitle                            308079      25      37       2   .text       
+     IndianaJones                            30809E      25      37       2   .text       
+     TestPitch                               3080C3      1E      30       2   .text       
+     ms_delay                                3080E1      1F      31       2   .text       
+     sound_init                              308100      20      32       2   .text       
+     sound_on                                308120       A      10       8   .text       
+     tone                                    30812A      16      22       2   .text       
+     SetClk24                                308140      15      21       2   .text       
+     handler                                   C015       8       8       1   NON_BANKED  
+     RTI_ISR                                   C01D      32      50       1   NON_BANKED  
 - VARIABLES:
-     pokemontitleScore                         1100     1EA     490       1   .data       
-     pokemontitleDelay                         12EA     1EA     490       1   .data       
-     indianajonesScore                         14D4      C2     194       1   .data       
-     indianajonesDelay                         1596      C2     194       1   .data       
-     restValue                                 1658       2       2       4   .bss        
-     j                                         165A       2       2       3   .bss        
-     noteValue                                 165C       2       2       2   .bss        
+     tetrisScore                               1100      C6     198       1   .data       
+     tetrisDelay                               11C6      C6     198       1   .data       
+     pokemontitleScore                         128C     1EA     490       1   .data       
+     pokemontitleDelay                         1476     1EA     490       1   .data       
+     indianajonesScore                         1660      C2     194       1   .data       
+     indianajonesDelay                         1722      C2     194       1   .data       
+     restValue                                 17E4       2       2       7   .bss        
+     j                                         17E6       2       2       3   .bss        
+     noteValue                                 17E8       2       2       5   .bss        
      _Vector_13                                FFE4       2       2       0   .abs_section_ffe4
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
-     noteP                                     165E       2       2       2   .common     
-     restP                                     1660       2       2       2   .common     
-     i                                         1662       2       2       9   .common     
-     pitch                                     1664       2       2       4   .common     
-     rest                                      1666       2       2       5   .common     
+     noteP                                     17EA       2       2       7   .common     
+     restP                                     17EC       2       2       7   .common     
+     pitch                                     17EE       2       2       1   .common     
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     37      0
-  Start12.c.o                                  0     59      0
-  sound.c.o                                 1384    354      4
-  other                                      256     12   1374
+  main.c.o                                     0     43      0
+  Start12.c.o                                  0     52      0
+  sound.c.o                                 1776    315      4
+  other                                      256     12   1770
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main TetrisThemeA PokemonTitle IndianaJones TestPitch ms_delay sound_init 
-  sound_on tone SetClk24 
+  main Init TetrisThemeA PokemonTitle IndianaJones TestPitch ms_delay 
+  sound_init sound_on tone SetClk24 
 SECTION: ".data"
-  pokemontitleScore pokemontitleDelay indianajonesScore indianajonesDelay 
+  tetrisScore tetrisDelay pokemontitleScore pokemontitleDelay 
+  indianajonesScore indianajonesDelay 
 SECTION: ".bss"
   restValue j noteValue 
 SECTION: ".init"
-  Init _Startup 
+  _Startup 
 SECTION: "NON_BANKED"
   handler RTI_ISR 
 SECTION: ".abs_section_8"
@@ -1493,7 +1494,7 @@ SECTION: ".abs_section_2ae"
 SECTION: ".abs_section_2be"
   _CAN4TXTSR 
 SECTION: ".common"
-  noteP restP i pitch rest 
+  noteP restP pitch 
 SECTION: ".abs_section_ffe4"
   _Vector_13 
 SECTION: ".abs_section_fff0"
@@ -1844,34 +1845,34 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXDLR                                 2BC       1       1       0   .abs_section_2bc
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
-     pokemontitleScore                         1100     1EA     490       1   .data       
-     pokemontitleDelay                         12EA     1EA     490       1   .data       
-     indianajonesScore                         14D4      C2     194       1   .data       
-     indianajonesDelay                         1596      C2     194       1   .data       
-     restValue                                 1658       2       2       4   .bss        
-     j                                         165A       2       2       3   .bss        
-     noteValue                                 165C       2       2       2   .bss        
-     noteP                                     165E       2       2       2   .common     
-     restP                                     1660       2       2       2   .common     
-     i                                         1662       2       2       9   .common     
-     pitch                                     1664       2       2       4   .common     
-     rest                                      1666       2       2       5   .common     
-     Init                                      C000      29      41       1   .init       
-     _Startup                                  C029      12      18       0   .init       
-     handler                                   C045       7       7       1   NON_BANKED  
-     RTI_ISR                                   C04C      32      50       1   NON_BANKED  
+     tetrisScore                               1100      C6     198       1   .data       
+     tetrisDelay                               11C6      C6     198       1   .data       
+     pokemontitleScore                         128C     1EA     490       1   .data       
+     pokemontitleDelay                         1476     1EA     490       1   .data       
+     indianajonesScore                         1660      C2     194       1   .data       
+     indianajonesDelay                         1722      C2     194       1   .data       
+     restValue                                 17E4       2       2       7   .bss        
+     j                                         17E6       2       2       3   .bss        
+     noteValue                                 17E8       2       2       5   .bss        
+     noteP                                     17EA       2       2       7   .common     
+     restP                                     17EC       2       2       7   .common     
+     pitch                                     17EE       2       2       1   .common     
+     _Startup                                  C000       B      11       0   .init       
+     handler                                   C015       8       8       1   NON_BANKED  
+     RTI_ISR                                   C01D      32      50       1   NON_BANKED  
      _Vector_13                                FFE4       2       2       0   .abs_section_ffe4
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
-     main                                    308000      25      37       1   .text       
-     TetrisThemeA                            308025      18      24       1   .text       
-     PokemonTitle                            30803D      42      66       1   .text       
-     IndianaJones                            30807F      42      66       1   .text       
-     TestPitch                               3080C1      19      25       1   .text       
-     ms_delay                                3080DA      1F      31       3   .text       
-     sound_init                              3080F9      20      32       1   .text       
-     sound_on                                308119       A      10       4   .text       
-     tone                                    308123      16      22       1   .text       
-     SetClk24                                308139      15      21       1   .text       
+     main                                    308000      2B      43       2   .text       
+     Init                                    30802B      29      41       2   .text       
+     TetrisThemeA                            308054      25      37       2   .text       
+     PokemonTitle                            308079      25      37       2   .text       
+     IndianaJones                            30809E      25      37       2   .text       
+     TestPitch                               3080C3      1E      30       2   .text       
+     ms_delay                                3080E1      1F      31       2   .text       
+     sound_init                              308100      20      32       2   .text       
+     sound_on                                308120       A      10       8   .text       
+     tone                                    30812A      16      22       2   .text       
+     SetClk24                                308140      15      21       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1881,15 +1882,50 @@ sound.c.o:
   sound_off 
 NOT USED VARIABLES
 sound.c.o:
-  tetrisScore tetrisDelay 
+  i rest 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC07E ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC04F ---- SIZE       4 ---
 Filling bytes inserted
- 05581100
-------- ROM-ADDRESS: 0xC082 ---- RAM-ADDRESS: 0x1100 ---- SIZE     186 ---
+ 06E41100
+------- ROM-ADDRESS: 0xC053 ---- RAM-ADDRESS: 0x1100 ---- SIZE     196 ---
+Name of initialized Object : tetrisScore
+ 023902F802 CD027F0239 027F02CD02
+ F803550355 02CD023902 7F02CD02F8
+ 02CD027F02 3902CD0355 0355000002
+ 7F021901AA 01DF021902 3902CD0239
+ 027F02CD02 F802F802CD 027F023902
+ CD03550355 0000023902 F802CD027F
+ 0239027F02 CD02F80355 035502CD02
+ 39027F02CD 02F802CD02 7F023902CD
+ 0355035500 00027F0219 01AA01DF02
+ 19023902CD 0239027F02 CD02F802F8
+ 02CD027F02 3902CD0355 0355000004
+ 72059A04FD 05EF059A06 A9070E05EF
+ 0472059A04 FD05EF059A 0472035503
+ 87
+------- ROM-ADDRESS: 0xC117 ---- SIZE       3 ---
+Filling bytes inserted
+ 000000
+------- ROM-ADDRESS: 0xC11A ---- RAM-ADDRESS: 0x11C7 ---- SIZE     197 ---
+Name of initialized Object : tetrisDelay:1
+ 19000C000C 000C000600 06000C000C
+ 0019000C00 0C0019000C 000C002500
+ 0C00190019 0019001900 32000C0019
+ 000C001900 0C000C0025 000C001900
+ 0C000C0019 000C000C00 1900190019
+ 0019001900 190019000C 000C000C00
+ 060006000C 000C001900 0C000C0019
+ 000C000C00 25000C0019 0019001900
+ 190032000C 0019000C00 19000C000C
+ 0025000C00 19000C000C 0019000C00
+ 0C00190019 0019001900 1900190032
+ 0032003200 3200320032 0032003200
+ 3200320032 0032001900 1900320064
+ 0032
+------- ROM-ADDRESS: 0xC1DF ---- RAM-ADDRESS: 0x128C ---- SIZE     186 ---
 Name of initialized Object : pokemontitleScore
  077A05EF04 FD03F603BD 03BD000003
  BD03BD03BD 03BD03BD04 3204320432
@@ -1904,64 +1940,64 @@ Name of initialized Object : pokemontitleScore
  01DF03BD03 5501AA0192 0219021904
  320192017C 016701DF01 DF03BD0167
  0152013F02 7F
-------- ROM-ADDRESS: 0xC13C ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC299 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC140 ---- RAM-ADDRESS: 0x11BE ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC29D ---- RAM-ADDRESS: 0x134A ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:190
  027F
-------- ROM-ADDRESS: 0xC142 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC29F ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC146 ---- RAM-ADDRESS: 0x11C4 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2A3 ---- RAM-ADDRESS: 0x1350 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:196
  027F
-------- ROM-ADDRESS: 0xC148 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2A5 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC14C ---- RAM-ADDRESS: 0x11CA ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2A9 ---- RAM-ADDRESS: 0x1356 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:202
  027F
-------- ROM-ADDRESS: 0xC14E ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2AB ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC152 ---- RAM-ADDRESS: 0x11D0 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2AF ---- RAM-ADDRESS: 0x135C ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:208
  027F
-------- ROM-ADDRESS: 0xC154 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2B1 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC158 ---- RAM-ADDRESS: 0x11D6 ---- SIZE      12 ---
+------- ROM-ADDRESS: 0xC2B5 ---- RAM-ADDRESS: 0x1362 ---- SIZE      12 ---
 Name of initialized Object : pokemontitleScore:214
  027F016701 670152013F 027F
-------- ROM-ADDRESS: 0xC164 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2C1 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC168 ---- RAM-ADDRESS: 0x11E6 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2C5 ---- RAM-ADDRESS: 0x1372 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:230
  027F
-------- ROM-ADDRESS: 0xC16A ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2C7 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC16E ---- RAM-ADDRESS: 0x11EC ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2CB ---- RAM-ADDRESS: 0x1378 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:236
  027F
-------- ROM-ADDRESS: 0xC170 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2CD ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC174 ---- RAM-ADDRESS: 0x11F2 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2D1 ---- RAM-ADDRESS: 0x137E ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:242
  027F
-------- ROM-ADDRESS: 0xC176 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2D3 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC17A ---- RAM-ADDRESS: 0x11F8 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2D7 ---- RAM-ADDRESS: 0x1384 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:248
  027F
-------- ROM-ADDRESS: 0xC17C ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2D9 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC180 ---- RAM-ADDRESS: 0x11FE ---- SIZE     158 ---
+------- ROM-ADDRESS: 0xC2DD ---- RAM-ADDRESS: 0x138A ---- SIZE     158 ---
 Name of initialized Object : pokemontitleScore:254
  027F016701 67017C03BD 02F8027F05
  9A04320219 0239025B02 7F04320472
@@ -1974,105 +2010,105 @@ Name of initialized Object : pokemontitleScore:254
  019201DF03 BD035501AA 0192021902
  1904320192 017C016701 DF01DF03BD
  0167015201 3F027F
-------- ROM-ADDRESS: 0xC21E ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC37B ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC222 ---- RAM-ADDRESS: 0x12A0 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC37F ---- RAM-ADDRESS: 0x142C ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:416
  027F
-------- ROM-ADDRESS: 0xC224 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC381 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC228 ---- RAM-ADDRESS: 0x12A6 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC385 ---- RAM-ADDRESS: 0x1432 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:422
  027F
-------- ROM-ADDRESS: 0xC22A ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC387 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC22E ---- RAM-ADDRESS: 0x12AC ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC38B ---- RAM-ADDRESS: 0x1438 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:428
  027F
-------- ROM-ADDRESS: 0xC230 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC38D ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC234 ---- RAM-ADDRESS: 0x12B2 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC391 ---- RAM-ADDRESS: 0x143E ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:434
  027F
-------- ROM-ADDRESS: 0xC236 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC393 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC23A ---- RAM-ADDRESS: 0x12B8 ---- SIZE      12 ---
+------- ROM-ADDRESS: 0xC397 ---- RAM-ADDRESS: 0x1444 ---- SIZE      12 ---
 Name of initialized Object : pokemontitleScore:440
  027F016701 670152013F 027F
-------- ROM-ADDRESS: 0xC246 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC3A3 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC24A ---- RAM-ADDRESS: 0x12C8 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC3A7 ---- RAM-ADDRESS: 0x1454 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:456
  027F
-------- ROM-ADDRESS: 0xC24C ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC3A9 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC250 ---- RAM-ADDRESS: 0x12CE ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC3AD ---- RAM-ADDRESS: 0x145A ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:462
  027F
-------- ROM-ADDRESS: 0xC252 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC3AF ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC256 ---- RAM-ADDRESS: 0x12D4 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC3B3 ---- RAM-ADDRESS: 0x1460 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:468
  027F
-------- ROM-ADDRESS: 0xC258 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC3B5 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC25C ---- RAM-ADDRESS: 0x12DA ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC3B9 ---- RAM-ADDRESS: 0x1466 ---- SIZE       2 ---
 Name of initialized Object : pokemontitleScore:474
  027F
-------- ROM-ADDRESS: 0xC25E ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC3BB ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xC262 ---- RAM-ADDRESS: 0x12E0 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xC3BF ---- RAM-ADDRESS: 0x146C ---- SIZE       8 ---
 Name of initialized Object : pokemontitleScore:480
  027F016701 67017C
-------- ROM-ADDRESS: 0xC26A ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xC3C7 ---- SIZE       3 ---
 Filling bytes inserted
  000000
-------- ROM-ADDRESS: 0xC26D ---- RAM-ADDRESS: 0x12EB ---- SIZE     489 ---
+------- ROM-ADDRESS: 0xC3CA ---- RAM-ADDRESS: 0x1477 ---- SIZE     489 ---
 Name of initialized Object : pokemontitleDelay:1
- 3E003E003E 003E00FA00 FA007D003E
- 003E00FA00 FA00FA0029 0029002900
- 2900290029 0177007D01 F401770177
- 00FA003E00 3E01F40177 003E003E01
- F400530053 0053017700 7D01F401F4
- 0053005300 5301F40053 0053005302
- 71007D007D 007D017700 7D01F40177
- 007D017700 3E003E01F4 0177003E00
- 3E01F40053 0053005301 77007D01F4
- 0177007D00 5300530053 0177007D01
- F40177007D 01F4017700 7D01F401F4
- 00FA00FA01 77007D01F4 01F400FA00
- FA00BB003E 007D003E00 3E007D003E
- 003E007D00 3E003E007D 003E003E00
- 7D003E003E 0053005300 5300BB003E
- 007D003E00 3E007D003E 003E007D00
- 3E003E007D 003E003E00 7D003E003E
- 0053005300 530177007D 01F4017700
- 7D0177003E 003E01F401 77003E003E
- 01F4005300 5300530177 007D01F401
- F400530053 005301F400 5300530053
- 0271007D00 7D007D0177 007D01F401
- 77007D0177 003E003E01 F40177003E
- 003E01F400 5300530053 0177007D01
- F40177007D 0053005300 530177007D
- 01F4017700 7D01F40177 007D01F401
- F400FA00FA 0177007D01 F401F400FA
- 00FA00BB00 3E007D003E 003E007D00
- 3E003E007D 003E003E00 7D003E003E
- 007D003E00 3E00530053 005300BB00
- 3E007D003E 003E007D00 3E003E007D
- 003E003E00 7D003E003E 007D003E00
- 3E00530053 005301F4
-------- ROM-ADDRESS: 0xC456 ---- RAM-ADDRESS: 0x14D4 ---- SIZE     192 ---
+ 0600060006 0006001900 19000C0006
+ 0006001900 1900190004 0004000400
+ 0400040004 0025000C00 3200250025
+ 0019000600 0600320025 0006000600
+ 3200080008 0008002500 0C00320032
+ 0008000800 0800320008 0008000800
+ 3E000C000C 000C002500 0C00320025
+ 000C002500 0600060032 0025000600
+ 0600320008 0008000800 25000C0032
+ 0025000C00 0800080008 0025000C00
+ 320025000C 0032002500 0C00320032
+ 0019001900 25000C0032 0032001900
+ 1900120006 000C000600 06000C0006
+ 0006000C00 060006000C 0006000600
+ 0C00060006 0008000800 0800120006
+ 000C000600 06000C0006 0006000C00
+ 060006000C 0006000600 0C00060006
+ 0008000800 080025000C 0032002500
+ 0C00250006 0006003200 2500060006
+ 0032000800 0800080025 000C003200
+ 3200080008 0008003200 0800080008
+ 003E000C00 0C000C0025 000C003200
+ 25000C0025 0006000600 3200250006
+ 0006003200 0800080008 0025000C00
+ 320025000C 0008000800 080025000C
+ 0032002500 0C00320025 000C003200
+ 3200190019 0025000C00 3200320019
+ 0019001200 06000C0006 0006000C00
+ 060006000C 0006000600 0C00060006
+ 000C000600 0600080008 0008001200
+ 06000C0006 0006000C00 060006000C
+ 0006000600 0C00060006 000C000600
+ 0600080008 00080032
+------- ROM-ADDRESS: 0xC5B3 ---- RAM-ADDRESS: 0x1660 ---- SIZE     192 ---
 Name of initialized Object : indianajonesScore
  0472043203 BD02CD04FD 0472043203
  BD035502F8 0219035502 F802CD027F
@@ -2087,32 +2123,31 @@ Name of initialized Object : indianajonesScore
  04FD043204 7203BD0239 047203BD04
  3204FD0432 047203BD02 39027F0239
  0219027F02 19025B027F 02CD
-------- ROM-ADDRESS: 0xC516 ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xC673 ---- SIZE       3 ---
 Filling bytes inserted
  000000
-------- ROM-ADDRESS: 0xC519 ---- RAM-ADDRESS: 0x1597 ---- SIZE     193 ---
+------- ROM-ADDRESS: 0xC676 ---- RAM-ADDRESS: 0x1723 ---- SIZE     193 ---
 Name of initialized Object : indianajonesDelay:1
- BB003E007D 027100BB00 3E02EE00BB
- 003E007D02 7100BB003E 00FA00FA00
- FA00BB003E 007D027100 BB003E02EE
- 00BB003E00 FA00BB003E 00FA00BB00
- 3E00FA00BB 003E007D00 7D00BB003E
- 007D027100 BB003E02EE 00BB003E00
- 7D027100BB 003E00FA00 FA00FA00BB
- 003E007D02 7100BB003E 02EE00BB00
- 3E00FA00BB 003E00FA00 BB003E00FA
- 00BB003E00 7D007D00BB 003E02EE00
- BB003E0029 0029021D00 BB003E02EE
- 00BB003E00 290029021D 00BB003E02
- EE00BB003E 0029002902 1D01F4
-------- ROM-ADDRESS: 0xC5DA ---- SIZE       2 ---
+ 120006000C 003E001200 06004B0012
+ 0006000C00 3E00120006 0019001900
+ 1900120006 000C003E00 120006004B
+ 0012000600 1900120006 0019001200
+ 0600190012 0006000C00 0C00120006
+ 000C003E00 120006004B 0012000600
+ 0C003E0012 0006001900 1900190012
+ 0006000C00 3E00120006 004B001200
+ 0600190012 0006001900 1200060019
+ 0012000600 0C000C0012 0006004B00
+ 1200060004 0004003600 120006004B
+ 0012000600 0400040036 0012000600
+ 4B00120006 0004000400 360032
+------- ROM-ADDRESS: 0xC737 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
 *********************************************************************************************
 OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
-Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
 handler                   USES noteValue tone 
 RTI_ISR                   USES _CRGFLG restValue j noteP noteValue restP 
@@ -2120,11 +2155,13 @@ _Vector_13                USES handler
 _Vector_7                 USES RTI_ISR 
 main                      USES SetClk24 sound_init _RTICTL _CRGINT _CRGFLG 
                                 IndianaJones TetrisThemeA PokemonTitle TestPitch 
-TetrisThemeA              USES i pitch noteP rest restP sound_on 
-PokemonTitle              USES i pokemontitleScore pitch pokemontitleDelay 
-                                rest sound_on ms_delay 
-IndianaJones              USES i indianajonesScore pitch indianajonesDelay 
-                                rest sound_on ms_delay 
+Init                      USES _startupData 
+TetrisThemeA              USES tetrisScore noteP tetrisDelay restP noteValue 
+                                restValue sound_on 
+PokemonTitle              USES pokemontitleScore noteP pokemontitleDelay restP 
+                                noteValue restValue sound_on 
+IndianaJones              USES indianajonesScore noteP indianajonesDelay restP 
+                                noteValue restValue sound_on 
 TestPitch                 USES pitch sound_on ms_delay 
 sound_init                USES _TIOS _TSCR2 _TSCR1 _TCNT _TC5 _TC7 _OC7M _OC7D 
                                 _TCTL1 
@@ -2146,8 +2183,6 @@ DEPENDENCY TREE
  |  +- IndianaJones        
  |  |  | 
  |  |  +- sound_on            
- |  |  |    
- |  |  +- ms_delay            
  |  |       
  |  +- TetrisThemeA        
  |  |  | 
@@ -2156,15 +2191,13 @@ DEPENDENCY TREE
  |  +- PokemonTitle        
  |  |  | 
  |  |  +- sound_on             (see above)
- |  |  |  
- |  |  +- ms_delay             (see above)
  |  |     
  |  +- TestPitch           
  |     | 
  |     +- sound_on             (see above)
  |     |  
- |     +- ms_delay             (see above)
- |        
+ |     +- ms_delay            
+ |          
  +- _Startup            
     | 
     +- Init                
@@ -2188,5 +2221,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 1840
+Total size of all blocks to be downloaded: 2196
 

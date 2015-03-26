@@ -116,23 +116,23 @@
 #define r     0 
 
 
-
+#define changeSpeed 10
 //DEFINE NOTE REST
-#define sixtenth          62             //0.06  seconds
-#define eigth             125            //0.12  seconds
-#define eigthDot          187            //0.19  seconds
-#define quarter           250            //0.25  seconds
-#define quarterDot        375            //0.37  seconds
-#define half              500            //0.50  seconds
-#define halfDot           750            //0.75  seconds
-#define whole             1000           //1.00  second
-#define tripeletQ         quarter/3      //0.08  seconds
-#define tripeletS         sixtenth/3     //0.02  seconds
-#define tripeletE         eigth/3        //0.04  seconds
-#define tieEigthQuarter   eigth+quarter  //0.37  seconds
-#define tieEigthHalf      eigth+half     //0.62  seconds
-#define tieTripletEHalf   tripeletE+half //0.54  seconds
-#define end_song          half           //end song, quiet for 0.5 seconds
+#define sixtenth          62/changeSpeed             //0.06  seconds
+#define eigth             125/changeSpeed            //0.12  seconds
+#define eigthDot          187/changeSpeed            //0.19  seconds
+#define quarter           250/changeSpeed            //0.25  seconds
+#define quarterDot        375/changeSpeed            //0.37  seconds
+#define half              500/changeSpeed            //0.50  seconds
+#define halfDot           750/changeSpeed            //0.75  seconds
+#define whole             1000/changeSpeed           //1.00  second
+#define tripeletQ         82/changeSpeed      //0.08  seconds
+#define tripeletS         21/changeSpeed     //0.02  seconds
+#define tripeletE         42/changeSpeed        //0.04  seconds
+#define tieEigthQuarter   375/changeSpeed  //0.37  seconds
+#define tieEigthHalf      625/changeSpeed     //0.62  seconds
+#define tieTripletEHalf   542/changeSpeed //0.54  seconds
+#define end_song          500/changeSpeed           //end song, quiet for 0.5 seconds
 
 
 //Define song to play
@@ -285,11 +285,10 @@ void interrupt VectorNumber_Vtimch5 handler(){
 //RTI acts as a ms_delay
 void interrupt VectorNumber_Vrti RTI_ISR(){        
   CRGFLG= 0x80;   //clear real-time interrupt flag!!!    
-     
+   
   if(restValue == 0){
    noteValue = *(noteP+j);
    restValue = *(restP+j);
-   //xsound_on();
    j++;
   } 
   restValue--; //decrease rest time
@@ -300,69 +299,54 @@ void interrupt VectorNumber_Vrti RTI_ISR(){
 #pragma CODE_SEG DEFAULT 
 
 void TetrisThemeA(char playSong){
-    
-    /*
-    while(playSong == playTetris){      
-     if(i < 99){
-      pitch = tetrisScore[i] / 2;
-      rest = tetrisDelay[i] / 2;      
-      *noteP = pitch; //make the note pointer = to pitch
-      *restP = rest;  //rest pointer is now = to rest
-      sound_on();
-      i++;   
-     }else{
-       i=0;
-     }//else      
-    }//while
-    */
+  if(playSong == playTetris){
     
     noteP = tetrisScore; //make the note pointer = to first pitch array location
     restP = tetrisDelay; //make the rest pointer = to first rest array location
     
-    noteValue = *noteP;  //set noteValue to first value of note pointer
+    noteValue = *noteP ;  //set noteValue to first value of note pointer
     restValue = *restP;  //see above
-    
     sound_on();          //set up the timer register
-    
-    while(1){            //infinte loop for debug, don't do this in real code #fix
+ 
+        for(;;){            //infinte loop for debug, don't do this in real code #fix
     }
+  }
+
     
     
     
 }//TetrisThemeA 
 
 void PokemonTitle(char playSong){
-    i = 0;
+    if(playSong == playPokemon){
+      noteP = pokemontitleScore; //make the note pointer = to first pitch array location
+      restP = pokemontitleDelay; //make the rest pointer = to first rest array location
+      
+      noteValue = *noteP ;  //set noteValue to first value of note pointer
+      restValue = *restP;  //see above
+      sound_on();          //set up the timer register
     
-    while(playSong == playPokemon){     
-     if(i < 245){
-      pitch = pokemontitleScore[i] / 2;
-      rest = pokemontitleDelay[i];
-      sound_on();
-      ms_delay(rest);
-      i++;   
-     }else{
-       i=0;
-     }//else      
-    }//while
+        for(;;){            //infinte loop for debug, don't do this in real code #fix
+      }
+    }
+
+    
 }//PokemonTitle 
 
 void IndianaJones(char playSong){
-    i = 0;
-    sound_on();    
+    if(playSong == playIndianaJones){
     
-    while(playSong == playIndianaJones){      
-     if(i < 97){
-      pitch = indianajonesScore[i] / 2;
-      rest = indianajonesDelay[i];
-       
-      ms_delay(rest);
-      i++;
-     }else{
-       i=0;
-     }//else     
+    noteP = indianajonesScore; //make the note pointer = to first pitch array location
+    restP = indianajonesDelay; //make the rest pointer = to first rest array location
+    
+    noteValue = *noteP ;  //set noteValue to first value of note pointer
+    restValue = *restP;  //see above
+    sound_on();          //set up the timer register
+    
+        for(;;){            //infinte loop for debug, don't do this in real code #fix
+    }
+    }
 
-    }//while 
               
 }//IndianaJones
 
@@ -371,11 +355,13 @@ void IndianaJones(char playSong){
 /****USED FOR TESTING PITCHES FOR SPEAKER AUDIBILITY****/
 /*******************************************************/
 void TestPitch(char playSong){
+ if(playSong == playTestPitch){
   
  while(playSong == playTestPitch){ 
  pitch = 0xFFFF;
  sound_on();
  ms_delay(quarter);
+ } 
  }
 }//TestPitch
 

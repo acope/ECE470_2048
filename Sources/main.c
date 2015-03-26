@@ -38,7 +38,7 @@ void main(void) {
   
   for(;;){
   
-    char x = playTetris;
+    char x = playPokemon;
     
     IndianaJones(x);
     TetrisThemeA(x);
