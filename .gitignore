@@ -214,3 +214,14 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+2048.mcp
+*.tdt
+*.hwl
+*.ini
+*.mem
+/prm
+/cmd
+/bin
+/2048_Data
+
