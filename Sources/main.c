@@ -17,10 +17,10 @@ void main(void) {
   /* please make sure that you never leave main */
 }
 
-interrupt 6 void IRQ_handler(void){
+interrupt VectorNumber_Vrti void RTI_handler(void){
  
  
-PTH = 0x40; 
+//Logical RTI stuff
     
     
     
