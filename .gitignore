@@ -52,3 +52,4 @@ ECE704_2048_Data/Standard/ObjectCode/sound.c.o
 *.stg
 *.o
 ECE704_2048_Data/Standard/TargetDataWindows.tdt
+*.tdt
