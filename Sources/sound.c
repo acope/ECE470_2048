@@ -427,6 +427,8 @@ void tone(int pitch){
 
 void SetClk24(void) //Set the clock speed to 24Mhz
 {
+//PLLCLK = 2*OSCCLK*((SYNR+1)/(REFDV+1))
+
    CLKSEL &= 0x7F;
    PLLCTL |= 0x40;
    SYNR = 0x02;
