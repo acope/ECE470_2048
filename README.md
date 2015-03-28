@@ -1,7 +1,7 @@
-# ECE470_2048
-HCS12 2048 Game
+	This is a readme
+	This is a project
+	
 
-This is code for a final project. #nuffsaid
+	This is a reminder to write a half decient readme
 
-TODO:
-Create a decient Readme
+	
