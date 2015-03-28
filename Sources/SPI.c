@@ -1,3 +1,7 @@
+#include "masterHeaderFile.h"
+#include <hidef.h>      /* common defines and macros */
+#include "derivative.h"      /* derivative-specific definitions */
+
 void displayGameBoard(char *matrix)
 {
 	unsigned int sCount = 0;
@@ -15,7 +19,7 @@ void displayGameBoard(char *matrix)
 				bCount ++;
 				row = bCount / 80; //#fix there might be a casting issue here, I don't remember how they work.
 				hArrayElement = row / 20;
-				column = bcount % 80; 
+				column = bCount % 80; 
 				vArrayElement = column / 20;
 				// get the right picture from the colections of pictures
 				//arrayElementNumber = *(matrix + hArrayElement + vArrayElement);
@@ -24,10 +28,10 @@ void displayGameBoard(char *matrix)
 
 				pixel = getPixel(*(matrix + hArrayElement + vArrayElement), (column % 20 + row % 20));
 
-				SPIO_Send(pixel);
+				SPI0_outChar(pixel);
 			}
 		}else{
-			SPOI_Send(0x00);//send out a black pixel
+			SPI0_outChar(0x00);//send out a black pixel
 		}
 
 		sCount++;
@@ -40,6 +44,7 @@ char getPixel(unsigned char pictureNumber, int pixel)
 
 	return frank[pixel];
 }
+
 void SPI0_init(void)
 {
 	SPI0BR = 0x10;  //set baud rate to 6Mhz
@@ -47,12 +52,12 @@ void SPI0_init(void)
 	SPI0CR2 = 0x02; //Disable bidriectional mode, SPI stops in wait mote
 }
 
-void SPI0_outChar(void)
+void SPI0_outChar(char cx)
 //From the HCS12 Book, PG.  446
 {
 	char temp;
-	while(!(SPI0SR & SPTEF));
+	while(!(SPI0SR_SPTEF));
 	SPI0DR = cx;
-	while(!(SPI)SR & SPIF);
+	while(!(SPI0SR_SPIF));
 	temp = SPI0DR;
 }

@@ -8,5 +8,5 @@ void columnCondence(char array[], char column);
 
 void displayGameBoard(char *matrix);
 void SPI0_init(void);
-void SPI0_outChar(void);
+void SPI0_outChar(char cx);
 char getPixel(unsigned char pictureNumber, int pixel);

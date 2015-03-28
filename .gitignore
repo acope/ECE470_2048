@@ -7,3 +7,6 @@
 /cmd
 /bin
 /2048_Data
+*.o
+*.phy
+*.mcp

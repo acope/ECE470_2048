@@ -1,11 +1,13 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
+#include "masterHeaderFile.h" //header file for our functions
 
 
 
 void main(void) {
   /* put your own code here */
   
+  SPI0_init(); 
 
 
 	EnableInterrupts;
