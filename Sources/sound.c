@@ -136,10 +136,10 @@
 
 
 //Define song to play
-#define playTestPitch    0x01
-#define playTetris       0x02
-#define playPokemon      0x03
-#define playIndianaJones 0x04
+//#define playTestPitch    0x01
+#define playTetris       0x01
+#define playPokemon      0x02
+#define playIndianaJones 0x03
 
 
 
@@ -354,6 +354,8 @@ void IndianaJones(char playSong){
 /*******************************************************/
 /****USED FOR TESTING PITCHES FOR SPEAKER AUDIBILITY****/
 /*******************************************************/
+
+/*
 void TestPitch(char playSong){
  if(playSong == playTestPitch){
   
@@ -364,13 +366,15 @@ void TestPitch(char playSong){
  } 
  }
 }//TestPitch
-
+*/
     
 /*****************************************************/
 /*             ms_delay function                     */
 /*         creates a millisecond delay               */
 /*         Input: n (in milliseconds)                */
 /*****************************************************/
+
+/*
 void ms_delay(int n){
   int i,j;
   for(i=0; i<n; i++){
@@ -378,7 +382,7 @@ void ms_delay(int n){
     }//for
   }//for
 }//ms_delay
-
+*/
 
 
 void sound_init(){
