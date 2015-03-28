@@ -54,7 +54,9 @@ void main(void) {
   
   pieceMovement();
   
-  for(;;){  
+  for(;;){ 
+  
+   
     x = playTetris;
    
     IndianaJones(x);
@@ -87,4 +89,6 @@ void pieceMovement(){
   }else{
     //do nothing
   }
+  
+  button = 0x00;
 }
