@@ -151,7 +151,7 @@ volatile int *noteP; //note pointer
 volatile int *restP; //rest pointer
 
 //other variables
-int i;
+int i = 0;
 volatile int pitch;
 volatile int rest;
 
@@ -296,6 +296,11 @@ void interrupt VectorNumber_Vrti RTI_ISR(){
     
 }//interrupt 7
 
+
+
+
+
+
 #pragma CODE_SEG DEFAULT 
 
 void TetrisThemeA(char playSong){
@@ -307,6 +312,13 @@ void TetrisThemeA(char playSong){
     noteValue = *noteP ;  //set noteValue to first value of note pointer
     restValue = *restP;  //see above
     sound_on();          //set up the timer register
+    
+    /*Possible way of keeping music replaying
+      if(i==LengthOfTetris){
+       i=0;
+      }
+      i++;
+    */
  
         for(;;){            //infinte loop for debug, don't do this in real code #fix
     }
