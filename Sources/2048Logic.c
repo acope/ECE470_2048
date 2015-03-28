@@ -8,6 +8,10 @@ This would prove to be way easier to work with then, assuming I am using somesor
 parallel/interrupt driven display mechanism.
 */
 
+char array1[16], array2[16];
+char *pArray = array1; //This will allways be pointing to the good data
+char *pArrayTemp = array2; //This will allways be pointing to the temp array
+
 void arrayReduceWhiteSpaces(char array[])
 {
 	char column = 0;
@@ -56,21 +60,41 @@ void columnCondence(char array[], char column)
 	}
 }
 
+char* rotateRight(char *matrix)
+{
+	char *temp; //used when swapping the two matrixes
+	char cA[]= {23,8,4,0};
+	char c, cAValue;
+
+	//I hope this works
+	for(c =0; c<16; c++)
+	{
+		cAValue = cA[c mod 4];
+		*(pArrayTemp + c) = *(matrix + cAValue + (c/4));
+	}
+	//swap matrix
+	temp = matrix; 
+	matrix = pArrayTemp;
+	pArrayTemp = temp;
+	//give back the matix
+	return matrix;	
+}
+
 /* pointer example 
 retreived from http://www.tutorialspoint.com/cprogramming/c_pointer_to_an_array.htm*/
-
+/*
 #include <stdio.h>
 
 int main ()
 {
-   /* an array with 5 elements */
+   /* an array with 5 elements 
    double balance[5] = {1000.0, 2.0, 3.4, 17.0, 50.0};
    double *p;
    int i;
 
    p = balance;
  
-   /* output each array element's value */
+   /* output each array element's value 
    printf( "Array values using pointer\n");
    for ( i = 0; i < 5; i++ )
    {
@@ -85,4 +109,4 @@ int main ()
  
    return 0;
 }
-
+*/
