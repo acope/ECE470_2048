@@ -58,3 +58,4 @@ bin/Project.absHCS12_Serial_Monitor.abs.phy
 *.map
 ECE704_2048_Data/Standard/ObjectCode/main.c.o
 *.tdt
+2048_Data/CWSettingsWindows.stg
