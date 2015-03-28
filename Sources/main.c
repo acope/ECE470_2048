@@ -13,9 +13,10 @@ Need to add
 
 
 
-#include <hidef.h>      /* common defines and macros */
-#include "derivative.h"      /* derivative-specific definitions */
-#include "sound.h"
+#include <hidef.h>      //common defines and macros 
+#include "derivative.h"      // derivative-specific definitions
+#include "sound.h"       //sound definitions
+#include "controller.h"  //controller definitions
 
 
 //Define song to play
@@ -26,15 +27,19 @@ Need to add
 
 
 void main(void) {
- SetClk24(); //Initialize PLL
+  SetClk24(); //Initialize PLL
 
   //Timer Interrupt Initialization
   sound_init();
   
-   //RTI initializations
+  //RTI initializations
   RTICTL = 0x59;  //kick in every 20ms(lowest value rest is .02s = 20ms)
   CRGINT = 0x80;  //enable Real Time Interrupts (RTI)!
   CRGFLG = 0x80;  //make sure it is cleared at the beginning
+  
+  //Enable PortH(Controller Buttons) and PortH Interrupts
+  enablePortH();
+  PortH_ISR_Enable();
   
   for(;;){
   
