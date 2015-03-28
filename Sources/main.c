@@ -28,7 +28,10 @@ Need to add
 
 void main(void) {
   SetClk24(); //Initialize PLL
-
+  DDRJ = 0xff;
+  PTJ = 0x00;
+  DDRB =0xff;
+  PORTB=0xFF;
   //Timer Interrupt Initialization
   sound_init();
   
@@ -42,9 +45,9 @@ void main(void) {
   PortH_ISR_Enable();
   
   for(;;){
-  
-    char x = playPokemon;
     
+    char x = playPokemon;
+    //PORTB=0xFF;
     IndianaJones(x);
     TetrisThemeA(x);
     PokemonTitle(x);

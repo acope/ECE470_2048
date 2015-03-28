@@ -1,3 +1,13 @@
+/*Button control layout
+ *Black --> PH0
+ *White --> PH1
+ *Red   --> PH2
+ *Green --> PH3
+ *Blue  --> PH4
+ *Each button is connected to a hardware debounce circuit, ~20ms delay 
+ */
+
+
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 #include "controller.h" 
@@ -12,7 +22,7 @@ volatile char btnPressed;
 #pragma CODE_SEG NON_BANKED
 
 interrupt VectorNumber_Vporth void controllerISR(){
- PORTB = 0xFF;  //When PORT H PH0 is pressed LED will turn off
+ PORTB ^= 0xFF;  //When PORT H PH0 is pressed LED will turn off
  PIFH = 0xFF;   //Clear PortH interrupt flag, a MUST!
  
 }
