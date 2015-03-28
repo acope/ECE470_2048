@@ -41,3 +41,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.mcp
+ECE704_2048_Data/CWSettingsWindows.stg
+*.o
+ECE704_2048_Data/Standard/TargetDataWindows.tdt
