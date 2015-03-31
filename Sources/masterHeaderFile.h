@@ -6,6 +6,8 @@ void columnCondence(char array[], char column);
 
 //Located in SPI.c
 
+
+
 void displayGameBoard(char *matrix);
 void SPI0_init(void);
 void SPI0_outChar(char cx);
