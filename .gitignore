@@ -3,10 +3,10 @@
 *.hwl
 *.ini
 *.mem
-/prm
-/cmd
-/bin
-/2048_Data
+prm/
+cmd/
+bin/
+2048_Data/
 *.o
 *.phy
 *.mcp
