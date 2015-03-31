@@ -44,9 +44,21 @@ void displayGameBoard(char *matrix)
 
 char getPixel(unsigned char pictureNumber, int pixel)
 {
-	char frank[200];
-
-	return 0xFF;
+	char *p;
+	
+	if(pictureNumber == 0){
+	return 0x00;
+	}else
+	
+	switch(pictureNumber)
+			
+		case 1:
+			return *(sprite2+pixel)
+		case 2:
+		
+		default:
+			return (0x00);
+	
 }
 
 void SPI0_init(void)
