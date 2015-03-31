@@ -15,18 +15,29 @@ void displayGameBoard(char *matrix)
 	while (sCount < (150*200))//keep going untill the pixels are acounted for
 	{
 		
-	//	if(sCount > (150-80)*200) //when we get to the gameboard;
-		if(sCount % 200 == 0 )
-		{
-			       
-		c = c+ 4;	
-			
-						
-	
+		if(sCount > (150-80)*200) //when we get to the gameboard;
+	//	lCount++; //#fix, prob don't need this ether, just for logic sake
+
+			if(lCount % 200> 80 || lCount % 200 < 80 + 80)
+			{
+				bCount ++;
+				row = bCount / 80; //#fix there might be a casting issue here, I don't remember how they work.
+				hArrayElement = row / 20;
+				column = bCount % 80; 
+				vArrayElement = column / 20;
+				// get the right picture from the colections of pictures
+				//arrayElementNumber = *(matrix + hArrayElement + vArrayElement);
+				// get the pixel from the picture
+				//pixel = arrayElement[column % 20 + row % 20];
+
+				pixel = getPixel(*(matrix + hArrayElement + vArrayElement), (column % 20 + row % 20));
+
+				SPI0_outChar(pixel);
+			}
 		}else{
-		  
+			SPI0_outChar(0x00);//send out a black pixel
 		}
-		SPI0_outChar(c);
+
 		sCount++;
 	}
 }
