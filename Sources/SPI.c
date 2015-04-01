@@ -5,59 +5,92 @@
 void displayGameBoard(char *matrix)
 {
 	unsigned int sCount = 0;
-	unsigned int lCount = 0;
-	unsigned int bCount = 0;
-	unsigned char pixel, hArrayElement, column, vArrayElement, row;
-	char c = 0; 
+	unsigned int bCount = 0, pixelNum = 0;
+	unsigned char pixel = 0, hArrayElement = 0, column = 0, vArrayElement = 0, row = 0, picture = 0;
+
 	
 //	SPI0_outChar(c); //dummy becuase
 	
 	while (sCount < (150*200))//keep going untill the pixels are acounted for
 	{
 		
-		if(sCount > (150-80)*200) //when we get to the gameboard;
+		if(sCount > (150-80)*200){
+		  //when we get to the gameboard;
 	//	lCount++; //#fix, prob don't need this ether, just for logic sake
 
-			if(lCount % 200> 80 || lCount % 200 < 80 + 80)
+			if(sCount % 200 > 80 && sCount % 200 < 80 + 81)
 			{
-				bCount ++;
+				
 				row = bCount / 80; //#fix there might be a casting issue here, I don't remember how they work.
-				hArrayElement = row / 20;
+				vArrayElement = row / 20;
 				column = bCount % 80; 
-				vArrayElement = column / 20;
+				hArrayElement = column / 20;
 				// get the right picture from the colections of pictures
-				//arrayElementNumber = *(matrix + hArrayElement + vArrayElement);
+				picture = *(matrix + (vArrayElement*4) + hArrayElement);
 				// get the pixel from the picture
-				//pixel = arrayElement[column % 20 + row % 20];
+				pixelNum = (column % 20) + (row % 20)*20;
 
-				pixel = getPixel(*(matrix + hArrayElement + vArrayElement), (column % 20 + row % 20));
+				pixel = getPixel(picture, pixelNum);
 
 				SPI0_outChar(pixel);
+			  bCount ++;
+			}else{
+			  SPI0_outChar(0x00);
+			  
 			}
+			
 		}else{
 			SPI0_outChar(0x00);//send out a black pixel
+			
 		}
 
 		sCount++;
 	}
+	
 }
 
 char getPixel(unsigned char pictureNumber, int pixel)
 {
-	char *p;
+
 	
-	if(pictureNumber == 0){
-	return 0x00;
-	}else
-	
-	switch(pictureNumber)
-			
+	switch(pictureNumber){
+	  			
 		case 1:
-			return *(sprite2+pixel)
-		case 2:
+			return *(sprite2+pixel);
 		
+		case 2:
+		  return *(sprite4+pixel);
+		  
+		case 3:
+		  return *(sprite8+pixel);
+		  
+		case 4:
+		  return *(sprite16+pixel);
+		  
+		case 5:
+		  return *(sprite32+pixel);
+		  
+		case 6:
+		  return *(sprite64+pixel);
+		  
+		case 7:
+		  return *(sprite128+pixel);
+		  
+		case 8:
+		  return *(sprite256+pixel);
+		  
+		case 9:
+		  return *(sprite512+pixel);
+		  
+		case 10:
+		  return *(sprite1024+pixel);
+		  
+		case 11:
+		  return *(sprite2048+pixel);
+		  
 		default:
-			return (0x00);
+			return 0x00;
+	}
 	
 }
 

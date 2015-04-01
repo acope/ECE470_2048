@@ -17,10 +17,10 @@ void SetClk24(void) //Set the clock speed to 24Mhz
 void main(void) {
   /* put your own code here */
   char  array1[] = {
-    0,0,1,1,
-    2,0,0,0,
-    4,2,3,1,
-    0,0,0,0
+    1,2,3,4,
+    5,6,7,8,
+    9,10,11,1,
+    0,0,11,11
   };
   int i = 0;
   

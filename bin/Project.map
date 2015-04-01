@@ -15,7 +15,9 @@ FILE SECTION
 mc9s12dg256.c.o                         Model: SMALL,         Lang: ANSI-C
 main.c.o                                Model: SMALL,         Lang: ANSI-C
 Start12.c.o                             Model: SMALL,         Lang: ANSI-C
+rtshc12.c.o (ansisi.lib)                Model: SMALL,         Lang: ANSI-C
 SPI.c.o                                 Model: SMALL,         Lang: ANSI-C
+sprites.c.o                             Model: SMALL,         Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -24,7 +26,7 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC03B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     0
-  _Copy    *toCopyDownBeg 0xC0FF
+  _Copy    *toCopyDownBeg 0xD321
 } _startupData;
 
 *********************************************************************************************
@@ -33,8 +35,9 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             59     R     0xC000     0xC03A   ROM_C000
 .startData                        10     R     0xC03B     0xC044   ROM_C000
-.text                            186     R     0xC045     0xC0FE   ROM_C000
-.copy                              2     R     0xC0FF     0xC100   ROM_C000
+.rodata                         4400     R     0xC045     0xD174   ROM_C000
+.text                            398     R     0xD175     0xD302   ROM_C000
+.copy                              2     R     0xD321     0xD322   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -378,10 +381,11 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_fff0                  2     R     0xFFF0     0xFFF1   .absSeg341
+RUNTIME                           30     R     0xD303     0xD320   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         105 (dec:      261)
+READ_ONLY (R):        1327 (dec:     4903)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -741,9 +745,9 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     SetClk24                                  C045      15      21       1   .text       
-     main                                      C05A      57      87       1   .text       
-     RTI_handler                               C0B1       1       1       1   .text       
+     SetClk24                                  D175      15      21       1   .text       
+     main                                      D18A      5D      93       1   .text       
+     RTI_handler                               D1E7       1       1       1   .text       
 - VARIABLES:
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 MODULE:                 -- Start12.c.o --
@@ -754,30 +758,55 @@ MODULE:                 -- Start12.c.o --
      _startupData                              C03B       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          1100       0       0       1               
+MODULE:                 -- rtshc12.c.o (ansisi.lib) --
+- PROCEDURES:
+     _BDIVMODU                                 D303       A      10       4   RUNTIME     
+     _CASE_CHECKED_BYTE                        D30D      14      20       1   RUNTIME     
+- VARIABLES:
 MODULE:                 -- SPI.c.o --
 - PROCEDURES:
-     displayGameBoard                          C0B2      2A      42       1   .text       
-     SPI0_init                                 C0DC      12      18       1   .text       
-     SPI0_outChar                              C0EE      11      17       1   .text       
+     displayGameBoard                          D1E8      85     133       1   .text       
+     getPixel                                  D26D      73     115       1   .text       
+     SPI0_init                                 D2E0      12      18       1   .text       
+     SPI0_outChar                              D2F2      11      17       2   .text       
 - VARIABLES:
+MODULE:                 -- sprites.c.o --
+- PROCEDURES:
+- VARIABLES:
+     sprite2                                   C045     190     400       1   .rodata     
+     sprite4                                   C1D5     190     400       1   .rodata     
+     sprite8                                   C365     190     400       1   .rodata     
+     sprite16                                  C4F5     190     400       1   .rodata     
+     sprite32                                  C685     190     400       1   .rodata     
+     sprite64                                  C815     190     400       1   .rodata     
+     sprite128                                 C9A5     190     400       1   .rodata     
+     sprite256                                 CB35     190     400       1   .rodata     
+     sprite512                                 CCC5     190     400       1   .rodata     
+     sprite1024                                CE55     190     400       1   .rodata     
+     sprite2048                                CFE5     190     400       1   .rodata     
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0    109      2
+  main.c.o                                     0    115      2
   Start12.c.o                                  0     59      0
-  SPI.c.o                                      0     77      0
+  rtshc12.c.o (ansisi.lib)                     0     30      0
+  SPI.c.o                                      0    283      0
+  sprites.c.o                                  0      0   4400
   other                                      256     12      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  SetClk24 main RTI_handler displayGameBoard SPI0_init SPI0_outChar 
+  SetClk24 main RTI_handler displayGameBoard getPixel SPI0_init SPI0_outChar 
 SECTION: ".init"
   Init _Startup 
+SECTION: ".rodata"
+  sprite2 sprite4 sprite8 sprite16 sprite32 sprite64 sprite128 sprite256 
+  sprite512 sprite1024 sprite2048 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1462,6 +1491,8 @@ SECTION: ".abs_section_2be"
   _CAN4TXTSR 
 SECTION: ".abs_section_fff0"
   _Vector_7 
+SECTION: "RUNTIME"
+  _BDIVMODU _CASE_CHECKED_BYTE 
 
 *********************************************************************************************
 OBJECT LIST SORTED BY ADDRESS
@@ -1810,25 +1841,46 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029      12      18       0   .init       
-     SetClk24                                  C045      15      21       1   .text       
-     main                                      C05A      57      87       1   .text       
-     RTI_handler                               C0B1       1       1       1   .text       
-     displayGameBoard                          C0B2      2A      42       1   .text       
-     SPI0_init                                 C0DC      12      18       1   .text       
-     SPI0_outChar                              C0EE      11      17       1   .text       
+     sprite2                                   C045     190     400       1   .rodata     
+     sprite4                                   C1D5     190     400       1   .rodata     
+     sprite8                                   C365     190     400       1   .rodata     
+     sprite16                                  C4F5     190     400       1   .rodata     
+     sprite32                                  C685     190     400       1   .rodata     
+     sprite64                                  C815     190     400       1   .rodata     
+     sprite128                                 C9A5     190     400       1   .rodata     
+     sprite256                                 CB35     190     400       1   .rodata     
+     sprite512                                 CCC5     190     400       1   .rodata     
+     sprite1024                                CE55     190     400       1   .rodata     
+     sprite2048                                CFE5     190     400       1   .rodata     
+     SetClk24                                  D175      15      21       1   .text       
+     main                                      D18A      5D      93       1   .text       
+     RTI_handler                               D1E7       1       1       1   .text       
+     displayGameBoard                          D1E8      85     133       1   .text       
+     getPixel                                  D26D      73     115       1   .text       
+     SPI0_init                                 D2E0      12      18       1   .text       
+     SPI0_outChar                              D2F2      11      17       2   .text       
+     _BDIVMODU                                 D303       A      10       4   RUNTIME     
+     _CASE_CHECKED_BYTE                        D30D      14      20       1   RUNTIME     
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
-SPI.c.o:
-  getPixel 
+rtshc12.c.o (ansisi.lib):
+  _BSHL _BSHRS _BSHRU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU _LSHRS _LADD 
+  _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LNEG _LCOM _LINC _LDEC _LMUL 
+  _LMULU16x32 _LMULS16x32 _lDivMod _LDIVU _NEG_P _LDIVS _LMODU _LMODS _ILSEXT 
+  _COPY _CASE_DIRECT _CASE_DIRECT_BYTE _CASE_CHECKED _CASE_SEARCH 
+  _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL _FPCMP 
+NOT USED VARIABLES
+rtshc12.c.o (ansisi.lib):
+  _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC0FF ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xD321 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1840,7 +1892,10 @@ _Startup                  USES __SEG_END_SSTACK Init main
 SetClk24                  USES _CLKSEL _PLLCTL _SYNR _REFDV _CRGFLG 
 main                      USES SetClk24 SPI0_init _DDRAB _PORTAB _PTS 
                                 displayGameBoard 
-displayGameBoard          USES SPI0_outChar 
+displayGameBoard          USES _BDIVMODU getPixel SPI0_outChar 
+getPixel                  USES _CASE_CHECKED_BYTE sprite2 sprite4 sprite8 
+                                sprite16 sprite32 sprite64 sprite128 sprite256 
+                                sprite512 sprite1024 sprite2048 
 SPI0_init                 USES _SPI0BR _SPI0CR1 _SPI0CR2 _DDRS _PTS 
 SPI0_outChar              USES _SPI0SR _SPI0DR 
 _Vector_7                 USES RTI_handler 
@@ -1858,6 +1913,12 @@ DEPENDENCY TREE
  |  |    
  |  +- displayGameBoard    
  |     | 
+ |     +- _BDIVMODU           
+ |     |    
+ |     +- getPixel            
+ |     |  | 
+ |     |  +- _CASE_CHECKED_BYTE  
+ |     |       
  |     +- SPI0_outChar        
  |          
  +- _Startup            
@@ -1876,6 +1937,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 261
+Number of blocks to be downloaded: 7
+Total size of all blocks to be downloaded: 4903
 

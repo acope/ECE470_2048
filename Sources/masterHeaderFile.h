@@ -12,3 +12,17 @@ void displayGameBoard(char *matrix);
 void SPI0_init(void);
 void SPI0_outChar(char cx);
 char getPixel(unsigned char pictureNumber, int pixel);
+
+//Located in sprites.c
+//11 Sprites
+extern const char sprite2[];
+extern const char sprite4[];
+extern const char sprite8[];
+extern const char sprite16[];
+extern const char sprite32[];
+extern const char sprite64[];
+extern const char sprite128[];
+extern const char sprite256[];
+extern const char sprite512[];
+extern const char sprite1024[];
+extern const char sprite2048[];
