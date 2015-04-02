@@ -45,3 +45,9 @@ Temporary Items
 ECE704_2048_Data/CWSettingsWindows.stg
 *.o
 ECE704_2048_Data/Standard/TargetDataWindows.tdt
+*.abs
+cmd/
+prm/
+bin/
+P&E_Multilink_USB.ini
+*.ini
