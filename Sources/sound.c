@@ -136,10 +136,10 @@
 
 
 //Define song to play
-#define playTestPitch    0x01
-#define playTetris       0x02
-#define playPokemon      0x03
-#define playIndianaJones 0x04
+//#define playTestPitch    0x01
+#define playTetris       0x01
+#define playPokemon      0x02
+#define playIndianaJones 0x03
 
 
 
@@ -151,7 +151,7 @@ volatile int *noteP; //note pointer
 volatile int *restP; //rest pointer
 
 //other variables
-int i;
+int i = 0;
 volatile int pitch;
 volatile int rest;
 
@@ -296,6 +296,11 @@ void interrupt VectorNumber_Vrti RTI_ISR(){
     
 }//interrupt 7
 
+
+
+
+
+
 #pragma CODE_SEG DEFAULT 
 
 void TetrisThemeA(char playSong){
@@ -307,6 +312,13 @@ void TetrisThemeA(char playSong){
     noteValue = *noteP ;  //set noteValue to first value of note pointer
     restValue = *restP;  //see above
     sound_on();          //set up the timer register
+    
+    /*Possible way of keeping music replaying
+      if(i==LengthOfTetris){
+       i=0;
+      }
+      i++;
+    */
  
         for(;;){            //infinte loop for debug, don't do this in real code #fix
     }
@@ -354,6 +366,8 @@ void IndianaJones(char playSong){
 /*******************************************************/
 /****USED FOR TESTING PITCHES FOR SPEAKER AUDIBILITY****/
 /*******************************************************/
+
+/*
 void TestPitch(char playSong){
  if(playSong == playTestPitch){
   
@@ -364,13 +378,15 @@ void TestPitch(char playSong){
  } 
  }
 }//TestPitch
-
+*/
     
 /*****************************************************/
 /*             ms_delay function                     */
 /*         creates a millisecond delay               */
 /*         Input: n (in milliseconds)                */
 /*****************************************************/
+
+/*
 void ms_delay(int n){
   int i,j;
   for(i=0; i<n; i++){
@@ -378,7 +394,7 @@ void ms_delay(int n){
     }//for
   }//for
 }//ms_delay
-
+*/
 
 
 void sound_init(){

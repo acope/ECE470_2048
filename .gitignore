@@ -41,21 +41,22 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-ECE704_2048_Data/Standard/TargetDataWindows.tdt
-*.stg
-*.abs
-*.phy
-bin/Project.absHCS12_Serial_Monitor.abs.s19
-*.map
-*.tdt
-ECE704_2048_Data/Standard/ObjectCode/sound.c.o
-*.stg
+*.mcp
+ECE704_2048_Data/CWSettingsWindows.stg
 *.o
 ECE704_2048_Data/Standard/TargetDataWindows.tdt
-*.tdt
 *.abs
 bin/Project.absHCS12_Serial_Monitor.abs.phy
 *.map
 ECE704_2048_Data/Standard/ObjectCode/main.c.o
 *.tdt
 2048_Data/CWSettingsWindows.stg
+
+cmd/
+prm/
+bin/
+P&E_Multilink_USB.ini
+*.ini
+ECE704_2048_Data\Standard\
+ECE704_2048_Data/Standard/TargetDataWindows.tdt
+2048_Data/

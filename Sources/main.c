@@ -19,16 +19,27 @@ Need to add
 #include "controller.h"  //controller definitions
 
 
+void pieceMovement(void);
+
 //Define song to play
-#define playTestPitch    0x01
-#define playTetris       0x02
-#define playPokemon      0x03
-#define playIndianaJones 0x04
+//#define playTestPitch    0x01
+#define playTetris       0x01
+#define playPokemon      0x02
+#define playIndianaJones 0x03
+char x;
+ 
+
 
 
 void main(void) {
   SetClk24(); //Initialize PLL
-
+  
+  //used for testing, DDRJ,DDRB,PTJ,PORTB #fix
+  DDRJ = 0xff;
+  PTJ = 0x00;
+  DDRB =0xff;
+  PORTB=0x00;
+  
   //Timer Interrupt Initialization
   sound_init();
   
@@ -41,14 +52,43 @@ void main(void) {
   enablePortH();
   PortH_ISR_Enable();
   
-  for(;;){
+  pieceMovement();
   
-    char x = playPokemon;
-    
+  for(;;){ 
+  
+   
+    x = playTetris;
+   
     IndianaJones(x);
     TetrisThemeA(x);
     PokemonTitle(x);
-    TestPitch(x);
   } 
 }
 
+void pieceMovement(){
+    if(button == UP){
+    //transform
+    //transform
+    //logic
+    //transform
+    //transform
+  }else if(button == DOWN){
+    //logic
+  }else if(button == LEFT){ 
+    //transform
+    //transform
+    //transform
+    //logic
+    //transform
+  }else if(button == RIGHT){
+    //transform
+    //logic
+    //transform
+    //transform
+    //transform
+  }else{
+    //do nothing
+  }
+  
+  button = 0x00;
+}
