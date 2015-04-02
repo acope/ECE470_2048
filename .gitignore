@@ -1,3 +1,4 @@
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -51,3 +52,17 @@ prm/
 bin/
 P&E_Multilink_USB.ini
 *.ini
+2048.mcp
+*.tdt
+*.hwl
+*.ini
+*.mem
+prm/
+cmd/
+bin/
+2048_Data/
+*.o
+*.phy
+*.mcp
+2048.mcp
+*.mcp

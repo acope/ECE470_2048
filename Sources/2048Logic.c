@@ -7,6 +7,7 @@ I am thinking of chanigng this to use pointers, but I am not that far ahead yet
 This would prove to be way easier to work with then, assuming I am using somesort of 
 parallel/interrupt driven display mechanism.
 */
+#include "masterHeaderFile.h"
 
 char array1[16], array2[16];
 char *pArray = array1; //This will allways be pointing to the good data
@@ -30,8 +31,8 @@ void reduceColumnWhiteSpaces(char array[], char colNumber)
 	{
 		if((array[colNumber+c*4+4]==0) && (array[colNumber + c*4] != 0)) //If there is a "white Space" at row+1 and row has a number
 		{
-			array[colNumber+i*4+4] = array[colNumber+i*4]; //Bring down number
-			array[colNumber + i*4] = 0; //set row = 0
+			array[colNumber+c*4+4] = array[colNumber+c*4]; //Bring down number
+			array[colNumber + c*4] = 0; //set row = 0
 		}
 	}	
 }
@@ -69,7 +70,7 @@ char* rotateRight(char *matrix)
 	//I hope this works
 	for(c =0; c<16; c++)
 	{
-		cAValue = cA[c mod 4];
+		cAValue = cA[c % 4];
 		*(pArrayTemp + c) = *(matrix + cAValue + (c/4));
 	}
 	//swap matrix
@@ -81,20 +82,20 @@ char* rotateRight(char *matrix)
 }
 
 /* pointer example 
-retreived from http://www.tutorialspoint.com/cprogramming/c_pointer_to_an_array.htm*/
-/*
+retreived from http://www.tutorialspoint.com/cprogramming/c_pointer_to_an_array.htm
+
 #include <stdio.h>
 
 int main ()
 {
-   /* an array with 5 elements 
+    an array with 5 elements 
    double balance[5] = {1000.0, 2.0, 3.4, 17.0, 50.0};
    double *p;
    int i;
 
    p = balance;
  
-   /* output each array element's value 
+    output each array element's value 
    printf( "Array values using pointer\n");
    for ( i = 0; i < 5; i++ )
    {

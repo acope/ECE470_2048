@@ -15,6 +15,8 @@ FILE SECTION
 mc9s12dg256.c.o                         Model: SMALL,         Lang: ANSI-C
 main.c.o                                Model: SMALL,         Lang: ANSI-C
 Start12.c.o                             Model: SMALL,         Lang: ANSI-C
+rtshc12.c.o (ansisi.lib)                Model: SMALL,         Lang: ANSI-C
+SPI.c.o                                 Model: SMALL,         Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -23,7 +25,7 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC03B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     0
-  _Copy    *toCopyDownBeg 0xC056
+  _Copy    *toCopyDownBeg 0xC148
 } _startupData;
 
 *********************************************************************************************
@@ -32,8 +34,8 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             59     R     0xC000     0xC03A   ROM_C000
 .startData                        10     R     0xC03B     0xC044   ROM_C000
-.text                             17     R     0xC045     0xC055   ROM_C000
-.copy                              2     R     0xC056     0xC057   ROM_C000
+.text                            249     R     0xC045     0xC13D   ROM_C000
+.copy                              2     R     0xC148     0xC149   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -376,11 +378,12 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_17e                   2   N/I      0x17E      0x17F   .absSeg338
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
-.abs_section_fff2                  2     R     0xFFF2     0xFFF3   .absSeg341
+.abs_section_fff0                  2     R     0xFFF0     0xFFF1   .absSeg341
+RUNTIME                           10     R     0xC13E     0xC147   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):          5C (dec:       92)
+READ_ONLY (R):         14E (dec:      334)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -484,11 +487,11 @@ MODULE:                 -- mc9s12dg256.c.o --
      _SCI1SR2                                    D5       1       1       0   .abs_section_d5
      _SCI1DRH                                    D6       1       1       0   .abs_section_d6
      _SCI1DRL                                    D7       1       1       0   .abs_section_d7
-     _SPI0CR1                                    D8       1       1       0   .abs_section_d8
-     _SPI0CR2                                    D9       1       1       0   .abs_section_d9
-     _SPI0BR                                     DA       1       1       0   .abs_section_da
-     _SPI0SR                                     DB       1       1       0   .abs_section_db
-     _SPI0DR                                     DD       1       1       0   .abs_section_dd
+     _SPI0CR1                                    D8       1       1       1   .abs_section_d8
+     _SPI0CR2                                    D9       1       1       1   .abs_section_d9
+     _SPI0BR                                     DA       1       1       1   .abs_section_da
+     _SPI0SR                                     DB       1       1       2   .abs_section_db
+     _SPI0DR                                     DD       1       1       2   .abs_section_dd
      _IBAD                                       E0       1       1       0   .abs_section_e0
      _IBFD                                       E1       1       1       0   .abs_section_e1
      _IBCR                                       E2       1       1       0   .abs_section_e2
@@ -606,7 +609,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       1   .abs_section_260
+     _PTH                                       260       1       1       0   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
      _DDRH                                      262       1       1       0   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
@@ -740,10 +743,10 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C045       B      11       1   .text       
-     IRQ_handler                               C050       6       6       1   .text       
+     main                                      C045      3C      60       1   .text       
+     RTI_handler                               C081       1       1       1   .text       
 - VARIABLES:
-     _Vector_6                                 FFF2       2       2       0   .abs_section_fff2
+     _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
@@ -752,21 +755,34 @@ MODULE:                 -- Start12.c.o --
      _startupData                              C03B       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          1100       0       0       1               
+MODULE:                 -- rtshc12.c.o (ansisi.lib) --
+- PROCEDURES:
+     _BDIVMODU                                 C13E       A      10       4   RUNTIME     
+- VARIABLES:
+MODULE:                 -- SPI.c.o --
+- PROCEDURES:
+     displayGameBoard                          C082      8D     141       1   .text       
+     getPixel                                  C10F      12      18       1   .text       
+     SPI0_init                                 C121       C      12       1   .text       
+     SPI0_outChar                              C12D      11      17       2   .text       
+- VARIABLES:
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     17      2
+  main.c.o                                     0     61      2
   Start12.c.o                                  0     59      0
+  rtshc12.c.o (ansisi.lib)                     0     10      0
+  SPI.c.o                                      0    188      0
   other                                      256     12      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main IRQ_handler 
+  main RTI_handler displayGameBoard getPixel SPI0_init SPI0_outChar 
 SECTION: ".init"
   Init _Startup 
 SECTION: ".abs_section_8"
@@ -1451,8 +1467,10 @@ SECTION: ".abs_section_2ae"
   _CAN4RXTSR 
 SECTION: ".abs_section_2be"
   _CAN4TXTSR 
-SECTION: ".abs_section_fff2"
-  _Vector_6 
+SECTION: ".abs_section_fff0"
+  _Vector_7 
+SECTION: "RUNTIME"
+  _BDIVMODU 
 
 *********************************************************************************************
 OBJECT LIST SORTED BY ADDRESS
@@ -1590,11 +1608,11 @@ OBJECT LIST SORTED BY ADDRESS
      _SCI1SR2                                    D5       1       1       0   .abs_section_d5
      _SCI1DRH                                    D6       1       1       0   .abs_section_d6
      _SCI1DRL                                    D7       1       1       0   .abs_section_d7
-     _SPI0CR1                                    D8       1       1       0   .abs_section_d8
-     _SPI0CR2                                    D9       1       1       0   .abs_section_d9
-     _SPI0BR                                     DA       1       1       0   .abs_section_da
-     _SPI0SR                                     DB       1       1       0   .abs_section_db
-     _SPI0DR                                     DD       1       1       0   .abs_section_dd
+     _SPI0CR1                                    D8       1       1       1   .abs_section_d8
+     _SPI0CR2                                    D9       1       1       1   .abs_section_d9
+     _SPI0BR                                     DA       1       1       1   .abs_section_da
+     _SPI0SR                                     DB       1       1       2   .abs_section_db
+     _SPI0DR                                     DD       1       1       2   .abs_section_dd
      _IBAD                                       E0       1       1       0   .abs_section_e0
      _IBFD                                       E1       1       1       0   .abs_section_e1
      _IBCR                                       E2       1       1       0   .abs_section_e2
@@ -1724,7 +1742,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       1   .abs_section_260
+     _PTH                                       260       1       1       0   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
      _DDRH                                      262       1       1       0   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
@@ -1801,18 +1819,34 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029      12      18       0   .init       
-     main                                      C045       B      11       1   .text       
-     IRQ_handler                               C050       6       6       1   .text       
-     _Vector_6                                 FFF2       2       2       0   .abs_section_fff2
+     main                                      C045      3C      60       1   .text       
+     RTI_handler                               C081       1       1       1   .text       
+     displayGameBoard                          C082      8D     141       1   .text       
+     getPixel                                  C10F      12      18       1   .text       
+     SPI0_init                                 C121       C      12       1   .text       
+     SPI0_outChar                              C12D      11      17       2   .text       
+     _BDIVMODU                                 C13E       A      10       4   RUNTIME     
+     _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
+NOT USED PROCEDURES
+rtshc12.c.o (ansisi.lib):
+  _BSHL _BSHRS _BSHRU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU _LSHRS _LADD 
+  _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LNEG _LCOM _LINC _LDEC _LMUL 
+  _LMULU16x32 _LMULS16x32 _lDivMod _LDIVU _NEG_P _LDIVS _LMODU _LMODS _ILSEXT 
+  _COPY _CASE_DIRECT _CASE_DIRECT_BYTE _CASE_CHECKED _CASE_CHECKED_BYTE 
+  _CASE_SEARCH _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL 
+  _FPCMP 
+NOT USED VARIABLES
+rtshc12.c.o (ansisi.lib):
+  _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC056 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC148 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1821,8 +1855,11 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
-IRQ_handler               USES _PTH 
-_Vector_6                 USES IRQ_handler 
+main                      USES SPI0_init displayGameBoard 
+displayGameBoard          USES _BDIVMODU getPixel SPI0_outChar 
+SPI0_init                 USES _SPI0BR _SPI0CR1 _SPI0CR2 
+SPI0_outChar              USES _SPI0SR _SPI0DR 
+_Vector_7                 USES RTI_handler 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1830,16 +1867,26 @@ DEPENDENCY TREE
  main and _Startup Group
  | 
  +- main                
- |    
+ |  | 
+ |  +- SPI0_init           
+ |  |    
+ |  +- displayGameBoard    
+ |     | 
+ |     +- _BDIVMODU           
+ |     |    
+ |     +- getPixel            
+ |     |    
+ |     +- SPI0_outChar        
+ |          
  +- _Startup            
     | 
     +- Init                
     |    
     +- main                 (see above)
        
- _Vector_6           
+ _Vector_7           
  | 
- +- IRQ_handler         
+ +- RTI_handler         
       
 *********************************************************************************************
 STATISTIC SECTION
@@ -1847,6 +1894,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 92
+Number of blocks to be downloaded: 7
+Total size of all blocks to be downloaded: 334
 
