@@ -2,6 +2,9 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 
+//This file is tested and it's good.
+//Should change PORTA to just be 1 bit...
+
 void displayGameBoard(char *matrix)
 {
 	unsigned int sCount = 0;
@@ -9,7 +12,7 @@ void displayGameBoard(char *matrix)
 	unsigned char pixel = 0, hArrayElement = 0, column = 0, vArrayElement = 0, row = 0, picture = 0;
 
 	
-//	SPI0_outChar(c); //dummy becuase
+  PORTA = 0x00;
 	
 	while (sCount < (150*200))//keep going untill the pixels are acounted for
 	{
@@ -46,6 +49,8 @@ void displayGameBoard(char *matrix)
 
 		sCount++;
 	}
+	
+	PORTA = 0xFF;
 	
 }
 

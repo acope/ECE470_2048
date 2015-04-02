@@ -9,10 +9,6 @@ parallel/interrupt driven display mechanism.
 */
 #include "masterHeaderFile.h"
 
-char array1[16], array2[16];
-char *pArray = array1; //This will allways be pointing to the good data
-char *pArrayTemp = array2; //This will allways be pointing to the temp array
-
 void arrayReduceWhiteSpaces(char array[])
 {
 	char column = 0;

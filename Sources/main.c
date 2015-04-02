@@ -17,9 +17,10 @@ Need to add
 #include "derivative.h"      // derivative-specific definitions
 #include "sound.h"       //sound definitions
 #include "controller.h"  //controller definitions
+#include "masterHeaderFile.h"
 
 
-void pieceMovement(void);
+void pieceMovement(char *array);
 
 //Define song to play
 //#define playTestPitch    0x01
@@ -29,42 +30,36 @@ void pieceMovement(void);
 char x;
  
 
-
-
-/*
-  //putsomthing in the array for testing
-   PTS_PTS7 = 0;
-
-  for(;;) {
-   PORTA = 0x00;
-   
-   //SPI0_outChar(0xAA);
-   displayGameBoard(array1);
-   PORTA = 0xFF;
-   for(i = 0; i < 500; i++);
-   
-  }/* please make sure that you never leave main *
-}*/
-  
-    
-void main(void) {
-
-  char  array1[] = {
+//Define the array's needed to keep track of the data
+char  array1[] = {
     1,2,3,4,
     5,6,7,8,
     9,10,11,1,
     0,0,11,11
   };
+//char array1[16], array2[16];
+//testing purposes for the following line.
+char array2[];
+
+char *pArray = array1; //This will allways be pointing to the good data
+char *pArrayTemp = array2; //This will allways be pointing to the temp array
+
+  
+    
+void main(void) {
+
+  
   int i = 0;
 
   SetClk24(); //Initialize PLL
 
-  DDRA = 0xFF  ; //for the SPI flag
-  PORTA = 0xFF;
+  DDRA = 0xFF;   //for the SPI flag /#fix change to 1 bit
+  PORTA = 0xFF;  //Set SPI Flag high
   SPI0_init();
   
   
-  /*
+  
+  
   //used for testing, DDRJ,DDRB,PTJ,PORTB #fix
   DDRJ = 0xff;
   PTJ = 0x00;
@@ -82,21 +77,30 @@ void main(void) {
   //Enable PortH(Controller Buttons) and PortH Interrupts
   enablePortH();
   PortH_ISR_Enable();
-  */
-  pieceMovement();
+  
+  //Now entereth the main loop
   
   for(;;){ 
-  
    
-    x = playTetris;
+   //If there was a button prerssed
+   if(button != 0x00){
+    
+     pieceMovement(pArray); 
+     displayGameBoard(pArray);
+    
+   }
+   
+   /* x = playTetris;
    
     IndianaJones(x);
     TetrisThemeA(x);
-    PokemonTitle(x);
+    PokemonTitle(x);*/
+    
+    
   } 
 }
 
-void pieceMovement(){
+void pieceMovement(char *matrix){
     if(button == UP){
     //transform
     //transform
@@ -104,7 +108,8 @@ void pieceMovement(){
     //transform
     //transform
   }else if(button == DOWN){
-    //logic
+    arrayReduceWhiteSpaces(matrix);
+    arrayCondence(matix);
   }else if(button == LEFT){ 
     //transform
     //transform
