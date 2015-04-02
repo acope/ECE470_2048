@@ -1,7 +1,3 @@
-
-
-
-
 /************************************************
 Much to do.
 
@@ -63,10 +59,12 @@ void main(void) {
 
   SetClk24(); //Initialize PLL
 
-    DDRA = 0xFF  ; //for the SPI flag
+  DDRA = 0xFF  ; //for the SPI flag
   PORTA = 0xFF;
-SPI0_init();
+  SPI0_init();
   
+  
+  /*
   //used for testing, DDRJ,DDRB,PTJ,PORTB #fix
   DDRJ = 0xff;
   PTJ = 0x00;
@@ -84,7 +82,7 @@ SPI0_init();
   //Enable PortH(Controller Buttons) and PortH Interrupts
   enablePortH();
   PortH_ISR_Enable();
-  
+  */
   pieceMovement();
   
   for(;;){ 
@@ -124,5 +122,5 @@ void pieceMovement(){
   }
   
   button = 0x00;
->>>>>>> origin/Sound
+
 }
