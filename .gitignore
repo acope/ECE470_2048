@@ -47,9 +47,12 @@ ECE704_2048_Data/CWSettingsWindows.stg
 *.o
 ECE704_2048_Data/Standard/TargetDataWindows.tdt
 *.abs
-cmd/
-prm/
-bin/
+bin/Project.absHCS12_Serial_Monitor.abs.phy
+*.map
+ECE704_2048_Data/Standard/ObjectCode/main.c.o
+*.tdt
+2048_Data/CWSettingsWindows.stg
+
 P&E_Multilink_USB.ini
 *.ini
 2048.mcp
@@ -64,5 +67,6 @@ bin/
 *.o
 *.phy
 *.mcp
-2048.mcp
-*.mcp
+ECE704_2048_Data\Standard\
+ECE704_2048_Data/Standard/TargetDataWindows.tdt
+2048_Data/
