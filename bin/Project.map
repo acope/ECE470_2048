@@ -23,21 +23,21 @@ sprites.c.o                             Model: SMALL,         Lang: ANSI-C
 STARTUP SECTION
 ---------------------------------------------------------------------------------------------
 Entry point: 0xC029 (_Startup)
-_startupData is allocated at 0xC03B and uses 6 Bytes
+_startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     0
-  _Copy    *toCopyDownBeg 0xD321
+  _Copy    *toCopyDownBeg 0xD317
 } _startupData;
 
 *********************************************************************************************
 SECTION-ALLOCATION SECTION
 Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
-.init                             59     R     0xC000     0xC03A   ROM_C000
-.startData                        10     R     0xC03B     0xC044   ROM_C000
-.rodata                         4400     R     0xC045     0xD174   ROM_C000
-.text                            398     R     0xD175     0xD302   ROM_C000
-.copy                              2     R     0xD321     0xD322   ROM_C000
+.init                             49     R     0xC000     0xC030   ROM_C000
+.startData                        10     R     0xC031     0xC03A   ROM_C000
+.rodata                         4400     R     0xC03B     0xD16A   ROM_C000
+.text                            398     R     0xD16B     0xD2F8   ROM_C000
+.copy                              2     R     0xD317     0xD318   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -381,11 +381,11 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_fff0                  2     R     0xFFF0     0xFFF1   .absSeg341
-RUNTIME                           30     R     0xD303     0xD320   ROM_C000
+RUNTIME                           30     R     0xD2F9     0xD316   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):        1327 (dec:     4903)
+READ_ONLY (R):        131D (dec:     4893)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -745,45 +745,45 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     SetClk24                                  D175      15      21       1   .text       
-     main                                      D18A      5D      93       1   .text       
-     RTI_handler                               D1E7       1       1       1   .text       
+     SetClk24                                  D16B      15      21       1   .text       
+     main                                      D180      5D      93       1   .text       
+     RTI_handler                               D1DD       1       1       1   .text       
 - VARIABLES:
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
-     _Startup                                  C029      12      18       0   .init       
+     _Startup                                  C029       8       8       0   .init       
 - VARIABLES:
-     _startupData                              C03B       6       6       3   .startData  
+     _startupData                              C031       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansisi.lib) --
 - PROCEDURES:
-     _BDIVMODU                                 D303       A      10       4   RUNTIME     
-     _CASE_CHECKED_BYTE                        D30D      14      20       1   RUNTIME     
+     _BDIVMODU                                 D2F9       A      10       4   RUNTIME     
+     _CASE_CHECKED_BYTE                        D303      14      20       1   RUNTIME     
 - VARIABLES:
 MODULE:                 -- SPI.c.o --
 - PROCEDURES:
-     displayGameBoard                          D1E8      85     133       1   .text       
-     getPixel                                  D26D      73     115       1   .text       
-     SPI0_init                                 D2E0      12      18       1   .text       
-     SPI0_outChar                              D2F2      11      17       2   .text       
+     displayGameBoard                          D1DE      85     133       1   .text       
+     getPixel                                  D263      73     115       1   .text       
+     SPI0_init                                 D2D6      12      18       1   .text       
+     SPI0_outChar                              D2E8      11      17       2   .text       
 - VARIABLES:
 MODULE:                 -- sprites.c.o --
 - PROCEDURES:
 - VARIABLES:
-     sprite2                                   C045     190     400       1   .rodata     
-     sprite4                                   C1D5     190     400       1   .rodata     
-     sprite8                                   C365     190     400       1   .rodata     
-     sprite16                                  C4F5     190     400       1   .rodata     
-     sprite32                                  C685     190     400       1   .rodata     
-     sprite64                                  C815     190     400       1   .rodata     
-     sprite128                                 C9A5     190     400       1   .rodata     
-     sprite256                                 CB35     190     400       1   .rodata     
-     sprite512                                 CCC5     190     400       1   .rodata     
-     sprite1024                                CE55     190     400       1   .rodata     
-     sprite2048                                CFE5     190     400       1   .rodata     
+     sprite2                                   C03B     190     400       1   .rodata     
+     sprite4                                   C1CB     190     400       1   .rodata     
+     sprite8                                   C35B     190     400       1   .rodata     
+     sprite16                                  C4EB     190     400       1   .rodata     
+     sprite32                                  C67B     190     400       1   .rodata     
+     sprite64                                  C80B     190     400       1   .rodata     
+     sprite128                                 C99B     190     400       1   .rodata     
+     sprite256                                 CB2B     190     400       1   .rodata     
+     sprite512                                 CCBB     190     400       1   .rodata     
+     sprite1024                                CE4B     190     400       1   .rodata     
+     sprite2048                                CFDB     190     400       1   .rodata     
 
 *********************************************************************************************
 MODULE STATISTIC
@@ -791,7 +791,7 @@ MODULE STATISTIC
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
   main.c.o                                     0    115      2
-  Start12.c.o                                  0     59      0
+  Start12.c.o                                  0     49      0
   rtshc12.c.o (ansisi.lib)                     0     30      0
   SPI.c.o                                      0    283      0
   sprites.c.o                                  0      0   4400
@@ -1840,27 +1840,27 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
      Init                                      C000      29      41       1   .init       
-     _Startup                                  C029      12      18       0   .init       
-     sprite2                                   C045     190     400       1   .rodata     
-     sprite4                                   C1D5     190     400       1   .rodata     
-     sprite8                                   C365     190     400       1   .rodata     
-     sprite16                                  C4F5     190     400       1   .rodata     
-     sprite32                                  C685     190     400       1   .rodata     
-     sprite64                                  C815     190     400       1   .rodata     
-     sprite128                                 C9A5     190     400       1   .rodata     
-     sprite256                                 CB35     190     400       1   .rodata     
-     sprite512                                 CCC5     190     400       1   .rodata     
-     sprite1024                                CE55     190     400       1   .rodata     
-     sprite2048                                CFE5     190     400       1   .rodata     
-     SetClk24                                  D175      15      21       1   .text       
-     main                                      D18A      5D      93       1   .text       
-     RTI_handler                               D1E7       1       1       1   .text       
-     displayGameBoard                          D1E8      85     133       1   .text       
-     getPixel                                  D26D      73     115       1   .text       
-     SPI0_init                                 D2E0      12      18       1   .text       
-     SPI0_outChar                              D2F2      11      17       2   .text       
-     _BDIVMODU                                 D303       A      10       4   RUNTIME     
-     _CASE_CHECKED_BYTE                        D30D      14      20       1   RUNTIME     
+     _Startup                                  C029       8       8       0   .init       
+     sprite2                                   C03B     190     400       1   .rodata     
+     sprite4                                   C1CB     190     400       1   .rodata     
+     sprite8                                   C35B     190     400       1   .rodata     
+     sprite16                                  C4EB     190     400       1   .rodata     
+     sprite32                                  C67B     190     400       1   .rodata     
+     sprite64                                  C80B     190     400       1   .rodata     
+     sprite128                                 C99B     190     400       1   .rodata     
+     sprite256                                 CB2B     190     400       1   .rodata     
+     sprite512                                 CCBB     190     400       1   .rodata     
+     sprite1024                                CE4B     190     400       1   .rodata     
+     sprite2048                                CFDB     190     400       1   .rodata     
+     SetClk24                                  D16B      15      21       1   .text       
+     main                                      D180      5D      93       1   .text       
+     RTI_handler                               D1DD       1       1       1   .text       
+     displayGameBoard                          D1DE      85     133       1   .text       
+     getPixel                                  D263      73     115       1   .text       
+     SPI0_init                                 D2D6      12      18       1   .text       
+     SPI0_outChar                              D2E8      11      17       2   .text       
+     _BDIVMODU                                 D2F9       A      10       4   RUNTIME     
+     _CASE_CHECKED_BYTE                        D303      14      20       1   RUNTIME     
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 
 *********************************************************************************************
@@ -1880,7 +1880,7 @@ rtshc12.c.o (ansisi.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xD321 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xD317 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1938,5 +1938,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 4903
+Total size of all blocks to be downloaded: 4893
 

@@ -18,7 +18,7 @@ void displayGameBoard(char *matrix)
 		  //when we get to the gameboard;
 	//	lCount++; //#fix, prob don't need this ether, just for logic sake
 
-			if(sCount % 200 > 80 && sCount % 200 < 80 + 81)
+			if(sCount % 200 > 60 && sCount % 200 < 60 + 81)
 			{
 				
 				row = bCount / 80; //#fix there might be a casting issue here, I don't remember how they work.
@@ -32,6 +32,7 @@ void displayGameBoard(char *matrix)
 
 				pixel = getPixel(picture, pixelNum);
 
+        //pixel = 0xFF;
 				SPI0_outChar(pixel);
 			  bCount ++;
 			}else{

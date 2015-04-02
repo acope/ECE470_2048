@@ -6,9 +6,10 @@
 prm/
 cmd/
 bin/
-2048_Data/
+2048_Data/Standard/ObjectCode
 *.o
 *.phy
 *.mcp
 2048.mcp
 *.mcp
+*.o
