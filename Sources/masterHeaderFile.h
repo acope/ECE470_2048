@@ -34,6 +34,8 @@ extern const char sprite2048[];
 void enablePortH(void);
 void PortH_ISR_Enable(void);
 
+//located in title.c
+extern const char title[];
 
 extern volatile char direction;
 extern UP, DOWN, LEFT, RIGHT, RESTART;

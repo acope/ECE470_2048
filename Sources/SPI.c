@@ -7,17 +7,20 @@
 
 void displayGameBoard(char *matrix)
 {
-	unsigned int sCount = 0;
+	unsigned int sCount = 1;
 	unsigned int bCount = 0, pixelNum = 0;
 	unsigned char pixel = 0, hArrayElement = 0, column = 0, vArrayElement = 0, row = 0, picture = 0;
 
 	
   PORTA = 0x00;
 	
-	while (sCount < (150*200))//keep going untill the pixels are acounted for
+	while (sCount < (150*200-1))//keep going untill the pixels are acounted for
 	{
 		
-		if(sCount > (150-80)*200){
+		if(sCount < (200*30)) {
+		  
+		   SPI0_outChar(title[sCount]);
+		}else if(sCount > (150-100)*200 && sCount < (50+80)*200){
 		  //when we get to the gameboard;
 	//	lCount++; //#fix, prob don't need this ether, just for logic sake
 
@@ -49,6 +52,7 @@ void displayGameBoard(char *matrix)
 
 		sCount++;
 	}
+	
 	
 	PORTA = 0xFF;
 	
