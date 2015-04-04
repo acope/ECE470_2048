@@ -7,6 +7,7 @@ void arrayReduceWhiteSpaces(char array[]);
 void reduceColumnWhiteSpaces(char array[], char colNumber);
 void arrayCondence(char array[]);
 void columnCondence(char array[], char column);
+void rotateRight(void);
 
 //Located in SPI.c
 
@@ -28,3 +29,11 @@ extern const char sprite256[];
 extern const char sprite512[];
 extern const char sprite1024[];
 extern const char sprite2048[];
+
+//Located in conteoller.h
+void enablePortH(void);
+void PortH_ISR_Enable(void);
+
+
+extern volatile char direction;
+extern UP, DOWN, LEFT, RIGHT, RESTART;

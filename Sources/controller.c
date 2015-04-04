@@ -16,18 +16,17 @@
 
 #define CONTR_BTN_EN 0xE0 //0b11100000
 
-#define button direction //Button pressed is now the direction, global variable able to be read from outside of controller.c, sent to controller.h
+//#define  button direction //Button pressed is now the direction, global variable able to be read from outside of controller.c, sent to controller.h
 
 //Define global variables
-volatile char btnPressed;
 volatile char direction;
 
 // Button values when pressed:
-int GREEN, UP      = 0x08; // UP
-int RED,   DOWN    = 0x04; // DOWN
-int BLUE,  LEFT    = 0x10; // LEFT
-int WHITE, RIGHT   = 0x02; // RIGHT
-int BLACK, RESTART = 0x01; // RESTART
+#define  UP      0x08;  // UP Green
+#define  DOWN    0x04; // DOWN White
+#define  LEFT    0x10; // LEFT Blue
+#define  RIGHT   0x02; // RIGHT White
+#define  RESTART 0x01; // RESTART Black
 
 #pragma CODE_SEG NON_BANKED
 
@@ -43,7 +42,6 @@ interrupt VectorNumber_Vporth void controllerISR(){
   * White = 0x02 = RIGHT
   * Black = 0x01 = RESTART
   */
- 
  
  PIFH = 0xFF;   //Clear PortH interrupt flag, a MUST!
 
@@ -61,6 +59,9 @@ void enablePortH(){
 void PortH_ISR_Enable(){
   PIEH = 0x1F; //Enable PIEH0-PIEH4 interrupts
   PPSH = 0x00; //Enable interrupt on falling edge, if you want rising edge make the bit 1
+  asm{
+    cli
+  };
 }
 
 

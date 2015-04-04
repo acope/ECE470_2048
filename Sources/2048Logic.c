@@ -23,7 +23,7 @@ void reduceColumnWhiteSpaces(char array[], char colNumber)
 {
 	char c;
 
-	for(c = 0; c < 4; c++)
+	for(c = 0; c < 3; c++)
 	{
 		if((array[colNumber+c*4+4]==0) && (array[colNumber + c*4] != 0)) //If there is a "white Space" at row+1 and row has a number
 		{
@@ -47,17 +47,18 @@ void columnCondence(char array[], char column)
 {
 	char c;
 
-	for(c = 3; c>= 0; c--) //Looky there, a forloop that goes down instead of up
+	for(c = 3; c>= 1; c--) //Looky there, a forloop that goes down instead of up
 	{
-		if(array[c*4 + column]==array[c*4-4+column]) //if row and row+1 numbers are equal
+		if(array[c*4 + column]==array[c*4-4+column] && (array[c*4 + column] != 0)) //if row and row+1 numbers are equal
 		{
-			array[c*4 + column] *= 2; //double value
+			array[c*4 + column] += 1; //double value
 			array[c*4 - 4 + column] = 0; //clear upper value
 		}
 	}
 }
 
-char* rotateRight(char *matrix)
+/*
+void rotateRight(void)
 {
 	char *temp; //used when swapping the two matrixes
 	char cA[]= {23,8,4,0};
@@ -67,15 +68,14 @@ char* rotateRight(char *matrix)
 	for(c =0; c<16; c++)
 	{
 		cAValue = cA[c % 4];
-		*(pArrayTemp + c) = *(matrix + cAValue + (c/4));
+		*(pArrayTemp + c) = *(pArray + cAValue + (c/4));
 	}
 	//swap matrix
-	temp = matrix; 
-	matrix = pArrayTemp;
+	temp = pArray; 
+	pArray = pArrayTemp;
 	pArrayTemp = temp;
-	//give back the matix
-	return matrix;	
-}
+	
+} */
 
 /* pointer example 
 retreived from http://www.tutorialspoint.com/cprogramming/c_pointer_to_an_array.htm

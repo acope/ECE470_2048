@@ -21,7 +21,7 @@ void displayGameBoard(char *matrix)
 		  //when we get to the gameboard;
 	//	lCount++; //#fix, prob don't need this ether, just for logic sake
 
-			if(sCount % 200 > 80 && sCount % 200 < 80 + 81)
+			if(sCount % 200 > 60 && sCount % 200 < 60 + 81)
 			{
 				
 				row = bCount / 80; //#fix there might be a casting issue here, I don't remember how they work.
@@ -38,12 +38,12 @@ void displayGameBoard(char *matrix)
 				SPI0_outChar(pixel);
 			  bCount ++;
 			}else{
-			  SPI0_outChar(0x00);
+			  SPI0_outChar(0x11);
 			  
 			}
 			
 		}else{
-			SPI0_outChar(0x00);//send out a black pixel
+			SPI0_outChar(0x11);//send out a black pixel
 			
 		}
 
@@ -102,7 +102,7 @@ char getPixel(unsigned char pictureNumber, int pixel)
 void SPI0_init(void)
 {
 	SPI0BR = 0x10;  //set baud rate to 6Mhz
-	SPI0CR1 = 0x53; //enable SPI, date shift on SCK's riging edge
+	SPI0CR1 = 0x52; //enable SPI, date shift on SCK's riging edge
 	SPI0CR2 = 0x02; //Disable bidriectional mode, SPI stops in wait mote
 	DDRS != 0x80;
 	PTS != 0x80;
