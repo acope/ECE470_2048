@@ -34,6 +34,14 @@ char array2[] ={
 char *pArray = array1; //This will allways be pointing to the good data
 char *pArrayTemp = array2; //This will allways be pointing to the temp array
 
+
+void init_timer(){
+     TSCR1 = 0x80;  // enable channel 7
+     TSCR2 = 0x07;   //no interrupt and 128 scaler
+     
+}
+
+
   
     
 void main(void) {
@@ -61,7 +69,7 @@ void main(void) {
  
   //RTI initializations
 //  RTICTL = 0x59;  //kick in every 20ms(lowest value rest is .02s = 20ms)
-///  CRGINT = 0x80;  //enable Real Time Interrupts (RTI)!
+/// CRGINT = 0x80;  //enable Real Time Interrupts (RTI)!
 //  CRGFLG = 0x80;  //make sure it is cleared at the beginning
   
   //Enable PortH(Controller Buttons) and PortH Interrupts
@@ -75,12 +83,12 @@ void main(void) {
   for(;;){ 
    
    //If there was a button prerssed
-   if(direction != 0x00){
+   //if(direction != 0x00){
     
-     pieceMovement(); 
+    // pieceMovement(); 
      displayGameBoard(pArray);
     
-   } 
+  // } 
    
    /* x = playTetris;
    

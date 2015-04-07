@@ -57,6 +57,35 @@ void columnCondence(char array[], char column)
 	}
 }
 
+/* give this function an 8 bit number, it willl palce
+*/ 
+char placeRandomPeice(char array[], char time) 
+{
+  char peiceNumber; 
+  char position, count; 
+  
+  peiceNumber = (time & 0x01) + 1; //generate a 2 or 4
+  position = (time & 0b00001110);
+  position = position >> 1;
+  
+  if(array[position] == 0){
+   array[position] = peiceNumber;
+   return 1; //keep playing 
+  }else{
+  
+   for(count = 0; count < 16; count++) {
+      if(array[count % 16] == 0){
+       array[count % 16] = peiceNumber;
+       return 1; //keep playing 
+      }
+    
+      return 0; //game over, you lose!
+   }
+  
+  }
+  
+}
+
 /*
 void rotateRight(void)
 {

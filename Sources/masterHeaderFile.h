@@ -8,6 +8,7 @@ void reduceColumnWhiteSpaces(char array[], char colNumber);
 void arrayCondence(char array[]);
 void columnCondence(char array[], char column);
 void rotateRight(void);
+char placeRandomPeice(char array[], char time);
 
 //Located in SPI.c
 
