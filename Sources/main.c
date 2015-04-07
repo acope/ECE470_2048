@@ -83,12 +83,19 @@ void main(void) {
   for(;;){ 
    
    //If there was a button prerssed
-   //if(direction != 0x00){
+   if(direction != 0x00){
     
-    // pieceMovement(); 
+     pieceMovement(); 
      displayGameBoard(pArray);
-    
-  // } 
+	 
+	 if(placeRandomPeice(pArray, char time)){ //if there was a new piece put on the board.
+		displayGameBoard(pArray);
+		
+	 }else{ //game board full!
+	 //display the game over!
+	 }
+	 
+   } 
    
    /* x = playTetris;
    
