@@ -58,6 +58,7 @@ void columnCondence(char array[], char column)
 }
 
 /* give this function an 8 bit number, it willl palce
+NEED TO DEBUG
 */ 
 char placeRandomPeice(char array[], char time) 
 {
@@ -68,12 +69,15 @@ char placeRandomPeice(char array[], char time)
   position = (time & 0b00001110);
   position = position >> 1;
   
-  if(array[position] == 0){
-   array[position] = peiceNumber;
-   return 1; //keep playing 
-  }else{
+    if(array[position] == 0){
+      array[position] = peiceNumber;
+      return 1; //keep playing 
+    
+  }
+ 
   
    for(count = 0; count < 16; count++) {
+   
       if(array[count % 16] == 0){
        array[count % 16] = peiceNumber;
        return 1; //keep playing 
@@ -82,7 +86,7 @@ char placeRandomPeice(char array[], char time)
       return 0; //game over, you lose!
    }
   
-  }
+  
   
 }
 

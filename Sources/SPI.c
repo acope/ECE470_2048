@@ -117,8 +117,9 @@ void SPI0_outChar(char cx)
 {
 	char temp;
 	
+	temp = SPI0DR;
 	while(!(SPI0SR_SPTEF));
 	SPI0DR = cx;
-	while(!(SPI0SR_SPIF));
+	//while(!(SPI0SR_SPIF));
 	temp = SPI0DR;
 }

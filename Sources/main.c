@@ -17,19 +17,14 @@ char x;
 
 //Define the array's needed to keep track of the data
 char  array1[] = {
-    1,5,0,0,
-    1,5,2,0,
-    0,0,2,1,
-    1,0,2,0 
+    0,0,0,0,
+    0,0,0,0,
+    0,0,0,0,
+    0,0,0,0 
     };
 //char array1[16], array2[16];
 //testing purposes for the following line.
-char array2[] ={
-    1,2,2,1,
-    1,0,3,0,
-    1,0,0,0,
-    0,0,1,0 
-    };
+char array2[16];
 
 char *pArray = array1; //This will allways be pointing to the good data
 char *pArrayTemp = array2; //This will allways be pointing to the temp array
@@ -37,7 +32,7 @@ char *pArrayTemp = array2; //This will allways be pointing to the temp array
 
 void init_timer(){
      TSCR1 = 0x80;  // enable channel 7
-     TSCR2 = 0x07;   //no interrupt and 128 scaler
+     TSCR2 = 0x00;   //no interrupt and no scaler
      
 }
 
@@ -55,7 +50,7 @@ void main(void) {
   PORTA = 0xFF;  //Set SPI Flag high
   SPI0_init();
   
-  
+  init_timer();
   
   
   //used for testing, DDRJ,DDRB,PTJ,PORTB #fix
@@ -77,6 +72,7 @@ void main(void) {
   PortH_ISR_Enable();
   
   //Now entereth the main loop
+  placeRandomPeice(pArray, TCNT);
   displayGameBoard(pArray);
   
   //PORTB = 0xff;
@@ -87,8 +83,8 @@ void main(void) {
     
      pieceMovement(); 
      displayGameBoard(pArray);
-	 
-	 if(placeRandomPeice(pArray, char time)){ //if there was a new piece put on the board.
+	
+	 if(placeRandomPeice(pArray, TCNT)){ //if there was a new piece put on the board.
 		displayGameBoard(pArray);
 		
 	 }else{ //game board full!
