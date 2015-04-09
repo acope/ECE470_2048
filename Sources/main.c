@@ -60,13 +60,13 @@ void main(void) {
   PORTB=0x00;
   
   //Timer Interrupt Initialization
-  sound_init();
+ /* sound_init();
  
   //RTI initializations
   RTICTL = 0x59;  //kick in every 20ms(lowest value rest is .02s = 20ms)
   CRGINT = 0x80;  //enable Real Time Interrupts (RTI)!
   CRGFLG = 0x80;  //make sure it is cleared at the beginning
-  
+   */
   //Enable PortH(Controller Buttons) and PortH Interrupts
   enablePortH();
   PortH_ISR_Enable();
@@ -77,7 +77,7 @@ void main(void) {
   
    // x = playTetris;
    
-    IndianaJones(3);
+    //IndianaJones(3);
   
   //PORTB = 0xff;
   for(;;){ 
@@ -161,8 +161,10 @@ void pieceMovement(void){
       //logic
       arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
+      arrayReduceWhiteSpaces(pArray);
       arrayCondence(pArray);
-       arrayReduceWhiteSpaces(pArray);
+      arrayReduceWhiteSpaces(pArray);
+      arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
       //transform
       
@@ -175,8 +177,9 @@ void pieceMovement(void){
   }else if(direction == 0x04){     //down
       arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
-       
+      arrayReduceWhiteSpaces(pArray); 
       arrayCondence(pArray);
+      arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
   
@@ -186,10 +189,11 @@ void pieceMovement(void){
       //logic
       arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
+      arrayReduceWhiteSpaces(pArray);
       arrayCondence(pArray);
       arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
-
+      arrayReduceWhiteSpaces(pArray);
       //transform
       rotateRight();
       
@@ -197,6 +201,7 @@ void pieceMovement(void){
       rotateRight();
       //transform
       rotateRight();
+      
   }else if(direction == 0x02){   //right
       //transform
       rotateRight();
@@ -207,10 +212,11 @@ void pieceMovement(void){
       //logic
       arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
+      arrayReduceWhiteSpaces(pArray);
       arrayCondence(pArray);
       arrayReduceWhiteSpaces(pArray);
       arrayReduceWhiteSpaces(pArray);
-      
+      arrayReduceWhiteSpaces(pArray);
       //transform
       rotateRight() ;
   }else{
