@@ -355,8 +355,7 @@ void IndianaJones(char playSong){
     restValue = *restP;  //see above
     sound_on();          //set up the timer register
     
-        for(;;){            //infinte loop for debug, don't do this in real code #fix
-    }
+   
     }
 
               

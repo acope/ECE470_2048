@@ -60,12 +60,12 @@ void main(void) {
   PORTB=0x00;
   
   //Timer Interrupt Initialization
-//  sound_init();
+  sound_init();
  
   //RTI initializations
-//  RTICTL = 0x59;  //kick in every 20ms(lowest value rest is .02s = 20ms)
-/// CRGINT = 0x80;  //enable Real Time Interrupts (RTI)!
-//  CRGFLG = 0x80;  //make sure it is cleared at the beginning
+  RTICTL = 0x59;  //kick in every 20ms(lowest value rest is .02s = 20ms)
+  CRGINT = 0x80;  //enable Real Time Interrupts (RTI)!
+  CRGFLG = 0x80;  //make sure it is cleared at the beginning
   
   //Enable PortH(Controller Buttons) and PortH Interrupts
   enablePortH();
@@ -74,6 +74,10 @@ void main(void) {
   //Now entereth the main loop
   placeRandomPeice(pArray, TCNT);
   displayGameBoard(pArray);
+  
+   // x = playTetris;
+   
+    IndianaJones(3);
   
   //PORTB = 0xff;
   for(;;){ 
