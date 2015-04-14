@@ -6,15 +6,17 @@
 
 
 void pieceMovement();
+void changeSong(void);
 
 //Define song to play
-//#define playTestPitch    0x01
 #define playTetris       0x01
 #define playPokemon      0x02
 #define playIndianaJones 0x03
-char x;
- 
+#define playNothing      0x04
 
+ 
+unsigned char incSong = 0;
+  char s = 1;
 //Define the array's needed to keep track of the data
 char  array1[] = {
     0,0,0,0,
@@ -33,17 +35,16 @@ char *pArrayTemp = array2; //This will allways be pointing to the temp array
 void init_timer(){
      TSCR1 = 0x80;  // enable channel 7
      TSCR2 = 0x00;   //no interrupt and no scaler
-     
-}
+     }
 
 
   
     
 void main(void) {
 
-  
   int i = 0;
-
+  incSong = 1;
+  
   SetClk24(); //Initialize PLL
 
   DDRA = 0xFF;   //for the SPI flag /#fix change to 1 bit
@@ -74,37 +75,59 @@ void main(void) {
   //Now entereth the main loop
   placeRandomPeice(pArray, TCNT);
   displayGameBoard(pArray);
-  
-   // x = playTetris;
    
-    IndianaJones(3);
+   
+  playMusic(playPokemon);
+   
+    
+
+    
   
-  //PORTB = 0xff;
   for(;;){ 
-   
+  //Changes the song
+  if(direction == 0x01){
+      changeSong();
+  }  
+
    //If there was a button prerssed
    if(direction != 0x00){
-    
+     
+ 
      pieceMovement(); 
      displayGameBoard(pArray);
-	
-	 if(placeRandomPeice(pArray, TCNT)){ //if there was a new piece put on the board.
-		displayGameBoard(pArray);
-		
-	 }else{ //game board full!
-	 //display the game over!
-	 }
-	 
-   } 
-   
-   /* x = playTetris;
-   
-    IndianaJones(x);
-    TetrisThemeA(x);
-    PokemonTitle(x);
-    */
-    
+  	
+    	 if(placeRandomPeice(pArray, TCNT)){ //if there was a new piece put on the board.
+    		displayGameBoard(pArray);
+    		
+    	 }else{ //game board full!
+    	 //display the game over!
+    	 } 	 
+   }   
   } 
+}
+
+void changeSong(void){
+  
+  if(s==1){
+    j=0; //Sets the song back to the beginning
+    playMusic(playTetris);
+  }else if(s==2){
+    j=0;
+    playMusic(playPokemon);
+  }else if(s==3){
+    j=0;
+    playMusic(playIndianaJones);
+  }else if(s==4){
+    j=0;
+    playMusic(playNothing);
+  }else{
+    j=0;
+    s=0;
+  }
+  
+  s++; //Increment the song being played
+  
+   
 }
 
 void rotateRight(void)

@@ -132,7 +132,7 @@
 #define tieEigthQuarter   375/changeSpeed  //0.37  seconds
 #define tieEigthHalf      625/changeSpeed     //0.62  seconds
 #define tieTripletEHalf   542/changeSpeed //0.54  seconds
-#define end_song          500/changeSpeed           //end song, quiet for 0.5 seconds
+#define end_song          0xFF           //end song, quiet for 0.5 seconds
 
 
 //Define song to play
@@ -140,18 +140,21 @@
 #define playTetris       0x01
 #define playPokemon      0x02
 #define playIndianaJones 0x03
+#define playNothing      0x04
 
 
 
 //variables used for RTI
 int restValue = 0;
-int j = 0;
+volatile int j = 0;
+
+char newSong;
 volatile int noteValue = 0;
 volatile int *noteP; //note pointer
 volatile int *restP; //rest pointer
 
 //other variables
-int i = 0;
+
 volatile int pitch;
 volatile int rest;
 
@@ -270,6 +273,14 @@ int pokemontitleDelay[]={
 //|             20            |                         21                               |               22           |                   23                          |
    halfDot, eigthDot, sixtenth, tripeletE, tripeletE, tieTripletEHalf, eigthDot, sixtenth, halfDot, eigthDot, sixtenth, tripeletE, tripeletE, tieTripletEHalf, end_song //15 NOTES
  }; 
+ 
+ int nothingScore[]={
+  r,r
+ };
+ 
+ int nothingDelay[]={
+  whole, end_song
+ };
 
 #pragma CODE_SEG NON_BANKED
 
@@ -285,25 +296,80 @@ void interrupt VectorNumber_Vtimch5 handler(){
 //RTI acts as a ms_delay
 void interrupt VectorNumber_Vrti RTI_ISR(){        
   CRGFLG= 0x80;   //clear real-time interrupt flag!!!    
-   
-  if(restValue == 0){
-   noteValue = *(noteP+j);
-   restValue = *(restP+j);
-   j++;
-  } 
-  restValue--; //decrease rest time
   
-    
+  if(*(restP+j) != end_song){    
+    if(restValue == 0){
+     noteValue = *(noteP+j);
+     restValue = *(restP+j);
+     j++;
+    }
+  }else{
+   j=0; 
+  }  
+  restValue--; //decrease rest time   
 }//interrupt 7
-
-
-
-
 
 
 #pragma CODE_SEG DEFAULT 
 
-void TetrisThemeA(char playSong){
+
+
+
+void playMusic(char playSong){
+    sound_on();
+    
+    if(playSong == playTetris){
+    
+      noteP = tetrisScore; //make the note pointer = to first pitch array location
+      restP = tetrisDelay; //make the rest pointer = to first rest array location
+      
+      noteValue = *noteP ;  //set noteValue to first value of note pointer
+      restValue = *restP;  //see above
+  
+        
+    }else if(playSong == playPokemon){
+      noteP = pokemontitleScore; //make the note pointer = to first pitch array location
+      restP = pokemontitleDelay; //make the rest pointer = to first rest array location
+      
+      noteValue = *noteP ;  //set noteValue to first value of note pointer
+      restValue = *restP;  //see above
+
+      
+    }else if(playSong == playIndianaJones){
+      noteP = indianajonesScore; //make the note pointer = to first pitch array location
+      restP = indianajonesDelay; //make the rest pointer = to first rest array location
+      
+      noteValue = *noteP ;  //set noteValue to first value of note pointer
+      restValue = *restP;  //see above
+      
+    }else if(playSong == playNothing){
+      noteP = nothingScore; //make the note pointer = to first pitch array location
+      restP = nothingDelay; //make the rest pointer = to first rest array location
+      
+      noteValue = *noteP ;  //set noteValue to first value of note pointer
+      restValue = *restP;  //see above
+    }
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+char TetrisThemeA(char playSong){
   if(playSong == playTetris){
     
     noteP = tetrisScore; //make the note pointer = to first pitch array location
@@ -312,24 +378,15 @@ void TetrisThemeA(char playSong){
     noteValue = *noteP ;  //set noteValue to first value of note pointer
     restValue = *restP;  //see above
     sound_on();          //set up the timer register
-    
-    /*Possible way of keeping music replaying
-      if(i==LengthOfTetris){
-       i=0;
-      }
-      i++;
-    */
- 
-        for(;;){            //infinte loop for debug, don't do this in real code #fix
     }
-  }
+    return playSong = playPokemon;
+  } //TetrisThemeA
 
     
     
     
-}//TetrisThemeA 
 
-void PokemonTitle(char playSong){
+char PokemonTitle(char playSong){
     if(playSong == playPokemon){
       noteP = pokemontitleScore; //make the note pointer = to first pitch array location
       restP = pokemontitleDelay; //make the rest pointer = to first rest array location
@@ -338,29 +395,37 @@ void PokemonTitle(char playSong){
       restValue = *restP;  //see above
       sound_on();          //set up the timer register
     
-        for(;;){            //infinte loop for debug, don't do this in real code #fix
+      return playSong = playIndianaJones;
       }
-    }
+    }//PokemonTitle
 
-    
-}//PokemonTitle 
 
-void IndianaJones(char playSong){
+char IndianaJones(char playSong){
+    int i = 0;
     if(playSong == playIndianaJones){
-    
-    noteP = indianajonesScore; //make the note pointer = to first pitch array location
-    restP = indianajonesDelay; //make the rest pointer = to first rest array location
-    
-    noteValue = *noteP ;  //set noteValue to first value of note pointer
-    restValue = *restP;  //see above
-    sound_on();          //set up the timer register
-    
-   
+      noteP = indianajonesScore; //make the note pointer = to first pitch array location
+      restP = indianajonesDelay; //make the rest pointer = to first rest array location
+      
+      noteValue = *noteP ;  //set noteValue to first value of note pointer
+      restValue = *restP;  //see above
+      sound_on();          //set up the timer register      
+      playSong = playTetris;
+      
+     if(i==40){
+      playSong = playTetris;
+     } else{
+      playSong = playIndianaJones;
+     }
     }
+     
 
-              
+     
+     return playSong;
 }//IndianaJones
 
+  
+           
+ */
 
 /*******************************************************/
 /****USED FOR TESTING PITCHES FOR SPEAKER AUDIBILITY****/
