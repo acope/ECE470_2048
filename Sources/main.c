@@ -76,8 +76,8 @@ void main(void) {
   placeRandomPeice(pArray, TCNT);
   displayGameBoard(pArray);
    
-   
-  playMusic(playPokemon);
+  //start playing the music! 
+  playMusic(playTetris);
    
     
 
@@ -85,44 +85,50 @@ void main(void) {
   
   for(;;){ 
   //Changes the song
-  if(direction == 0x01){
-      changeSong();
-  }  
-
-   //If there was a button prerssed
-   if(direction != 0x00){
-     
  
-     pieceMovement(); 
-     displayGameBoard(pArray);
-  	
-    	 if(placeRandomPeice(pArray, TCNT)){ //if there was a new piece put on the board.
-    		displayGameBoard(pArray);
-    		
-    	 }else{ //game board full!
-    	 //display the game over!
-    	 } 	 
-   }   
-  } 
+
+     //If there was a button prersse
+     if(direction != 0x00){
+       
+       if(direction == 0x01){
+           changeSong();
+           direction = 0;
+       }else{
+        
+       
+   
+       pieceMovement(); 
+       displayGameBoard(pArray);
+    	
+      	 if(placeRandomPeice(pArray, TCNT)){ //if there was a new piece put on the board.
+      		displayGameBoard(pArray);
+      		
+      	 }else{ //game board full!
+      	 //display the game over!
+      	 }
+      	 
+       }
+      }   
+    
+  }
 }
 
 void changeSong(void){
   
-  if(s==1){
+  if(s==0){
     j=0; //Sets the song back to the beginning
     playMusic(playTetris);
-  }else if(s==2){
+  }else if(s==1){
     j=0;
     playMusic(playPokemon);
-  }else if(s==3){
+  }else if(s==2){
     j=0;
     playMusic(playIndianaJones);
-  }else if(s==4){
+  }else if(s==3){
     j=0;
+    s=-1;
     playMusic(playNothing);
-  }else{
-    j=0;
-    s=0;
+  
   }
   
   s++; //Increment the song being played
