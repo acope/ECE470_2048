@@ -66,7 +66,7 @@ char placeRandomPeice(char array[], char time)
   char position, count; 
   
   peiceNumber = (time & 0x01) + 1; //generate a 2 or 4
-  position = (time & 0b00001110);
+  position = (time & 0b00011110);
   position = position >> 1;
   
     if(array[position] == 0){
@@ -76,19 +76,49 @@ char placeRandomPeice(char array[], char time)
   }
  
   
-   for(count = 0; count < 16; count++) {
+   for(count = position; count < position + 16; count++) {
    
-      if(array[count % 16] == 0){
+      if(array[count % 16] == 0){        //chagned to 16 #IFixedIt
        array[count % 16] = peiceNumber;
        return 1; //keep playing 
       }
     
-      return 0; //game over, you lose!
+     
    }
+  
+   return 0; //game over, you lose!
   
   
   
 }
+
+ /*
+void copyArray(char a, char b) {
+char c;
+
+  for(c = 0; c < 16; c++) {
+     b[c] = a[c];
+    
+  }
+  
+}
+
+
+
+char compareArray(char a, char b){
+
+  for(c = 0; c < 16; c++) {
+     if(b[c] != a[c]) {
+      return 0;
+     }
+    
+  }
+  
+  return 1;
+  
+}
+   */
+
 
 /*
 void rotateRight(void)
