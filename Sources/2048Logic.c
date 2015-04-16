@@ -92,7 +92,7 @@ char placeRandomPeice(char array[], char time)
   
 }
 
-
+ /*
 void copyArray(char a, char b) {
 char c;
 
@@ -117,7 +117,7 @@ char compareArray(char a, char b){
   return 1;
   
 }
-
+   */
 
 
 /*
